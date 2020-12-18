@@ -18,28 +18,44 @@ namespace BaseFramework.Network
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             // init basic UI and network status
+            /*
             LoginButton = GameObject.Find("LoginBtn").GetComponent<Button>();
             LoginButtonText = LoginButton.transform.Find("Text").GetComponent<Text>();
             LoginInputAccount = GameObject.Find("AccountInputField").GetComponent<InputField>();
             LoginButtonText.text = "登录";
             LoginInputAccount.placeholder.GetComponent<Text>().text = "输入账号";
+            */
             NetConfigDict.Init();
-
+            /*
             // active UI event
             LoginButton.onClick.AddListener(startLoginProcess);
             LoginInputAccount.ActivateInputField();
+            */
         }
 
-        void startLoginProcess()
+        public void startLoginProcess()
         {
-            DebugLogger.Debug("start login process " + LoginInputAccount.text, Color.blue);
+            //DebugLogger.Debug("start login process " + LoginInputAccount.text, Color.blue);
             ucl = NetClient.GetInstance("logic");
+
+            /*
             if (ucl.Login(ServerIP, ServerPort, LoginInputAccount.text))
             {
                 switchScene("ServerScene");
                 //LoginRequist.ucl.rpcCall("notifytester.rpc_start_notify", "1", null);
+            }
+            else
+            {
+                DebugLogger.Debug("Login Error");
+            }
+            */
+
+            if (ucl.Login(ServerIP, ServerPort, GameObject.FindGameObjectWithTag("UserName").GetComponent<InputField>().text))
+            {
+                //switchScene("ServerScene");
+                GameManager.Instance.StartMatchmaking();
             }
             else
             {

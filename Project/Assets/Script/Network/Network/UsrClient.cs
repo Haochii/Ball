@@ -85,7 +85,7 @@ namespace BaseFramework.Network
         //注! : "..."+"Server"名称指对应的Text
 
         //分边
-        //返回 object {0} or {1}
+        //返回 class Side
         public class Side
         {
             public int side;
@@ -95,6 +95,8 @@ namespace BaseFramework.Network
             
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
             Side side = (Side)JsonConvert.DeserializeObject(retParam.ToString(), typeof(Side));
+            GameManager.Instance.EnterMatch(side.side);
+
             //ServerModules.AssignServer.text += retParam.ToString();
             DebugLogger.Debug("Side object :" + side.side.ToString() );
         }
@@ -117,16 +119,21 @@ namespace BaseFramework.Network
         {
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
             BallRdArr opponBallArray = (BallRdArr)JsonConvert.DeserializeObject(retParam.ToString(), typeof(BallRdArr));
-            ServerModules.BallReadyServer.text = opponBallArray.ToString();
-            DebugLogger.Debug("opponBallArray class :" + opponBallArray.first.ToString());
+
+            int[] types = new int[] { opponBallArray.first, opponBallArray.second, opponBallArray.third };
+            RoundManager.Instance.DeployEnemy(types);
+            //ServerModules.BallReadyServer.text = opponBallArray.ToString();
+            //DebugLogger.Debug("opponBallArray class :" + opponBallArray.first.ToString());
         }
 
         //战斗开始
         //不返回
         private void NotifyFightStart(Message msg)
         {
-            ServerModules.FightStartServer.text = "战斗开始,FightStartSever已经触发";
-            DebugLogger.Debug("FightStart");
+            RoundManager.Instance.GameStart();
+
+            //ServerModules.FightStartServer.text = "战斗开始,FightStartSever已经触发";
+            //DebugLogger.Debug("FightStart");
         }
 
         //获取对面选择的球的发射数据
@@ -149,8 +156,17 @@ namespace BaseFramework.Network
         {
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
             BallLaunchClass idBallLaunch = (BallLaunchClass)JsonConvert.DeserializeObject(retParam.ToString(), typeof(BallLaunchClass));
-            ServerModules.BallLaunchServer.text = idBallLaunch.radian.ToString();
-            DebugLogger.Debug("idBallLaunch class :" + idBallLaunch.radian.ToString());
+            if(idBallLaunch != null)
+			{
+                RoundManager.Instance.GetServerMsg(idBallLaunch.ball_id, idBallLaunch.radian, idBallLaunch.force);
+			}
+            else
+			{
+                RoundManager.Instance.GetServerMsg();
+            }
+
+            //ServerModules.BallLaunchServer.text = idBallLaunch.radian.ToString();
+            //DebugLogger.Debug("idBallLaunch class :" + idBallLaunch.radian.ToString());
         }
 
         //对方碰撞结束后获取对面球List的所有坐标进行校正
@@ -180,7 +196,7 @@ namespace BaseFramework.Network
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
             DebugLogger.Debug(retParam.ToString());
             LocalList local = (LocalList)JsonConvert.DeserializeObject(retParam.ToString(), typeof(LocalList));
-            Debug.Log("Check class: " + local.Ball_1.x.ToString());
+            //Debug.Log("Check class: " + local.Ball_1.x.ToString());
             //BallMove.ltball.transform.position = new Vector3(asd.x, 0, -5);
         }
 
@@ -188,7 +204,9 @@ namespace BaseFramework.Network
         //不返回
         private void NotifyNextRound(Message msg)
         {
-            ServerModules.NextRoundServer.text = "下一回合";
+            //ServerModules.NextRoundServer.text = "下一回合";
+            print("Received next.");
+            RoundManager.Instance.NextRound();
         }
 
         //服务器通知双方调用此方法
@@ -203,10 +221,11 @@ namespace BaseFramework.Network
         }
         private void NotifyGameOver(Message msg)
         {
-            ServerModules.GameOverServer.text = "游戏结束";
+            //ServerModules.GameOverServer.text = "游戏结束";
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
             IsWin isWin = (IsWin)JsonConvert.DeserializeObject(retParam.ToString(), typeof(IsWin));
-            DebugLogger.Debug(isWin.Win.ToString());
+            GameManager.Instance.ConfirmWin(isWin.Win);
+            //DebugLogger.Debug(isWin.Win.ToString());
         }
 
         //测试房间清理用
@@ -230,13 +249,13 @@ namespace BaseFramework.Network
             //Debug.Log(serializedMsg.sex);
             //return;
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
-            DebugLogger.Debug(retParam.ToString()+"测试成功");
+            //DebugLogger.Debug(retParam.ToString()+"测试成功");
         }
 
         private void NotifyStartMatch(Message msg)
         {
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
-            Debug.Log(retParam.ToString());
+            //Debug.Log(retParam.ToString());
             ServerModules.AssignServer.text += "匹配中...\n";
         }
 
@@ -270,7 +289,7 @@ namespace BaseFramework.Network
         private void NotifySynchLocation(Message msg)
         {
             object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
-            DebugLogger.Debug(retParam.ToString());
+            //DebugLogger.Debug(retParam.ToString());
             //AttrOfBall asd = (AttrOfBall)JsonConvert.DeserializeObject(retParam.ToString(), typeof(AttrOfBall));
             //Debug.Log(asd.x.ToString());
             //BallMove.ltball.transform.position = new Vector3(asd.x, 0, -5);
@@ -343,7 +362,7 @@ namespace BaseFramework.Network
         {
             var msg = ProtobufDecoder(data);
 
-            DebugLogger.Debug(msg.OpCode.ToString());
+            //DebugLogger.Debug(msg.OpCode.ToString());
 
             if (msg.OpCode == OPCODE.NotifyInfo)
             {

@@ -31,6 +31,14 @@ public class WallTile : MonoBehaviour
 		}
 	}
 
+	private void OnDestroy()
+	{
+		if (respawnable)
+		{
+			RoundManager.Instance.nextRound.RemoveAllListeners();
+		}
+	}
+
 	public void Damage()
 	{
 		if (breakable)

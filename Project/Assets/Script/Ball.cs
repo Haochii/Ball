@@ -16,7 +16,8 @@ public class Ball : MonoBehaviour
 	public float launchSpeed;
 	public float speedReduce;
 	[Header("Combat")]
-	public bool[] status;
+	public int type;
+	public bool[] status;	//For buffs.
 	public float attackMultiplier;
 	public Transform healthBar;
 	public Image healthFill;

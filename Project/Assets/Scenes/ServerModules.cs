@@ -59,7 +59,7 @@ namespace BaseFramework.Network
         //ServerModules 给服务端发送消息(优先级:1)
         void AssignFunc()
         {
-            AssignServer.text = "";
+            //AssignServer.text = "";
             //匹配成功则返回side
             LoginRequist.ucl.rpcCall("combat.start_match", null, null);
         }
