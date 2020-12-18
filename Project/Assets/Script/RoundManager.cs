@@ -51,12 +51,12 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckTimer();
-		
+
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
 		}
-		
+
 		if (ticking)
 		{
 			countDown -= Time.deltaTime;
@@ -78,13 +78,15 @@ public class RoundManager : MonoBehaviour
 		current = null;
 		firing = false;
 
-		ballListA.Clear();
-		ballListB.Clear();
+		//ballListA.Clear();
+		//ballListB.Clear();
 	}
 
 	public void GameStart()
 	{
 		Initialize();
+		//Deprecated. Replaced by manual override.
+		/*
 		Ball b;
 		GameObject[] balls = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject ball in balls)
@@ -99,7 +101,7 @@ public class RoundManager : MonoBehaviour
 				ballListB.Add(b);
 			}
 		}
-
+		*/
 		NextRound();
 	}
 
@@ -126,33 +128,26 @@ public class RoundManager : MonoBehaviour
 		}
 
 		uILaunch.active = true;
-	}
-
-	private void GetServerMsg()
-	{
-		float rad = UnityEngine.Random.value * Mathf.PI * 2;
-		float length = UnityEngine.Random.value;
-		current = ballListB[(int)(ballListB.Count * UnityEngine.Random.value)];
-		current.bl.Launch(rad, length);
-		firing = true;
+		uILaunch.SwitchButton(true);
 	}
 
 	//All balls launched, switching players.
 	public void NextRound()
 	{
+
+		//Server switching player.
+
 		isCurrentPlayerA = !isCurrentPlayerA;
 		movesLeft = maxMoves;
 		//movesLeft = isCurrentPlayerA ? ballListA.Count : ballListB.Count;
 		if (isCurrentPlayerA)
 		{
 			round++;
-			if(round > 1)
+			if (round > 1)
 			{
 				nextRound.Invoke();
 			}
 		}
-
-		//Server switching player.
 
 		countDown = roundTime;
 		ticking = true;
@@ -218,4 +213,27 @@ public class RoundManager : MonoBehaviour
 
 	}
 
+	private void GetServerMsg()
+	{
+		float rad = UnityEngine.Random.value * Mathf.PI * 2;
+		float length = UnityEngine.Random.value;
+		current = ballListB[(int)(ballListB.Count * UnityEngine.Random.value)];
+		current.bl.Launch(rad, length);
+		firing = true;
+	}
+
+	public void GetBall(int id)
+	{
+		print(id);
+		if (id < 0)
+		{
+			current = null;
+		}
+		else
+		{
+			current = GameManager.Instance.isPlayerA ? ballListA[id] : ballListB[id];
+			uILaunch.ready = true;
+			uILaunch.buttonPressed = true;
+		}
+	}
 }

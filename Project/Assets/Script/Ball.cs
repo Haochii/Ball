@@ -85,7 +85,7 @@ public class Ball : MonoBehaviour
 		Transform col = collision.transform;
 		if (col.CompareTag("Player"))
 		{
-			if (isPlayerA == RoundManager.Instance.isCurrentPlayerA && !col.GetComponent<Ball>().isPlayerA)
+			if (isPlayerA == RoundManager.Instance.isCurrentPlayerA && col.GetComponent<Ball>().isPlayerA != RoundManager.Instance.isCurrentPlayerA)
 			{
 				col.GetComponent<Ball>().Damage((int)(lastSpeed / launchSpeed * attackMultiplier));
 			}

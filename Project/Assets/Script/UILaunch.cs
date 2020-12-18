@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILaunch : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UILaunch : MonoBehaviour
 	public float waitTime;
 	public float aimRingRadius;
 	public float maxArrowScale;
+	public Button[] ballSelectButtons;
+	public bool buttonPressed;
 
 	private Vector2 startPos;
 	private Vector2 endPos;
@@ -25,12 +28,21 @@ public class UILaunch : MonoBehaviour
 		ready = false;
 		waiting = waitComplete = false;
 		timer = 0f;
+		//SwitchBotton(false);
+		/*
+		for (int i = 0; i < ballSelectButtons.Length; i++)
+		{
+			ballSelectButtons[i].onClick.AddListener(() => { RoundManager.Instance.current = GameManager.Instance.isPlayerA ? RoundManager.Instance.ballListA[i] : RoundManager.Instance.ballListB[i]; });
+			ballSelectButtons[i].onClick.AddListener(() => { print(nums[i]); });
+		}
+		*/
 	}
 
 	void Update()
 	{
 		if (active)
 		{
+			/*
 			if (Input.GetButtonDown("Fire1"))
 			{
 				Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -49,6 +61,7 @@ public class UILaunch : MonoBehaviour
 					waiting = waitComplete = false;
 				}
 			}
+			*/
 		}
 		else
 		{
@@ -61,6 +74,7 @@ public class UILaunch : MonoBehaviour
 			{
 				timer = 0f;
 				waiting = true;
+				SwitchButton(false);
 			}
 
 			if (Input.GetButton("Fire1") && waitComplete)
@@ -76,14 +90,22 @@ public class UILaunch : MonoBehaviour
 				if (waitComplete)
 				{
 					RoundManager.Instance.current.bl.Launch(angle, length / aimRingRadius);
+					/*
 					HideArrow();
+					SwitchBotton(false);
 					active = ready = false;
 					waitComplete = false;
+					*/
+					Halt();
 					RoundManager.Instance.firing = true;
 				}
-				else
+				else if(timer > 0.05f && !buttonPressed)
 				{
+					timer = 0f;
+					ready = false;
 					waiting = false;
+					RoundManager.Instance.GetBall(-1);
+					SwitchButton(true);
 				}
 			}
 		}
@@ -97,6 +119,13 @@ public class UILaunch : MonoBehaviour
 				waiting = false;
 				ShowArrow();
 			}
+		}
+
+		if (buttonPressed)
+		{
+			waiting = false;
+			timer = 0f;
+			buttonPressed = !buttonPressed;
 		}
 	}
 
@@ -119,9 +148,18 @@ public class UILaunch : MonoBehaviour
 		arrow.localScale = new Vector3(length / aimRingRadius * maxArrowScale, length / aimRingRadius * maxArrowScale);
 	}
 
+	public void SwitchButton(bool b)
+	{
+		foreach (Button button in ballSelectButtons)
+		{
+			button.interactable = b;
+		}
+	}
+
 	public void Halt()
 	{
 		HideArrow();
+		SwitchButton(false);
 		active = false;
 		ready = false;
 		waiting = waitComplete = false;

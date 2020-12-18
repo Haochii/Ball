@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance;
 
+
+	public bool isPlayerA;
 	public string playerAName;
 	public string playerBName;
 
@@ -25,9 +27,9 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		//RoundManager.Instance.isPlayerA = true;	//Just for offline test.
+		//isPlayerA = true;	//Just for offline test.
+		//Get If the player is player A.
 
-		
 
 		RoundManager.Instance.GameStart();
 	}

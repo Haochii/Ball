@@ -10,7 +10,6 @@ public class UIHUD : MonoBehaviour
 	public Text playerB;
 	public Image skillIcon;
 	public Image skillBar;
-	public Button[] ballIcon;
 	public Button[] ballIconA;
 	public Button[] ballIconB;
 	public Transform healthHolder;
@@ -30,11 +29,7 @@ public class UIHUD : MonoBehaviour
 	{
 		playerA.text = GameManager.Instance.playerAName;
 		playerB.text = GameManager.Instance.playerBName;
-		/*
-		for (int i = 0; i < ballIcon.Length; i++)
-		{
-			ballIcon[i].onClick.AddListener()
-		}
+		
 		for (int i = 0; i < ballIconA.Length; i++)
 		{
 
@@ -43,7 +38,6 @@ public class UIHUD : MonoBehaviour
 		{
 
 		}
-		*/
 	}
 
 	void Update()
