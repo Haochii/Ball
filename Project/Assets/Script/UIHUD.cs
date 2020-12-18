@@ -14,6 +14,13 @@ public class UIHUD : MonoBehaviour
 	public Button[] ballIconB;
 	public Transform healthHolder;
 	public Transform[] healthBar;
+	public float selectTime = 30f;
+	public Button[] selectButtons;
+	public Button deployButton;
+	public Image[] spawnPoints;
+	public Color checkColor;
+	public Color uncheckColor;
+	public GameObject footerDeploy;
 
 	/*
 	private void Awake()
@@ -27,9 +34,11 @@ public class UIHUD : MonoBehaviour
 
 	void Start()
 	{
-		playerA.text = GameManager.Instance.playerAName;
-		playerB.text = GameManager.Instance.playerBName;
-		
+		foreach(Image image in spawnPoints)
+		{
+			image.color = uncheckColor;
+		}
+
 		for (int i = 0; i < ballIconA.Length; i++)
 		{
 
@@ -43,7 +52,6 @@ public class UIHUD : MonoBehaviour
 	void Update()
 	{
 		countDown.text = ((int)RoundManager.Instance.countDown).ToString();
-
 	}
 
 	public void Halt()

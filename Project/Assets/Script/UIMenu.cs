@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIMenu : MonoBehaviour
 {
+    public Transform menuPanel;
+    public Transform middlePanel;
     public InputField inputField;
-
 
     // Start is called before the first frame update
     void Start()
