@@ -14,6 +14,7 @@ public class RoundManager : MonoBehaviour
 	public float roundTime;
 	public float countDown = 999f;
 	public float roundInterval = 1f;
+	public bool deploying;
 	public bool firing;
 	public bool isCurrentPlayerA;       //If the controlling player is player A.
 										//public bool isPlayerA;			//If player himself is player A.
@@ -21,12 +22,14 @@ public class RoundManager : MonoBehaviour
 	public List<Ball> ballListA;
 	public List<Ball> ballListB;
 	public Ball current;
+	public Sprite[] sprites;
 
-	public UILaunch uILaunch;
-	public UIHUD uIHUD;
 	[HideInInspector]
 	public UnityEvent nextRound;
 
+	private bool spawnReady;
+	private bool deployReady;
+	private int curSpawnPoint;
 	private bool ticking;   //If the round countdown is ticking.
 	private bool waiting;   //If the interruption is going on after all the balls have stopped.
 	private bool rolling;   //If there're still any balls rolling after a ball has been fired.
@@ -42,7 +45,9 @@ public class RoundManager : MonoBehaviour
 
 	void Start()
 	{
+		curSpawnPoint = 0;
 		countDown = roundTime;
+		deploying = spawnReady = deployReady = false;
 		rolling = false;
 		waiting = false;
 		//Initialize();
@@ -51,6 +56,11 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckTimer();
+
+		if (deploying)
+		{
+
+		}
 
 		if (waiting || firing)
 		{
@@ -64,8 +74,8 @@ public class RoundManager : MonoBehaviour
 		if (ticking && countDown <= 0f)
 		{
 			ticking = false;
-			uILaunch.Halt();
-			uIHUD.Halt();
+			GameManager.Instance.uILaunch.Halt();
+			GameManager.Instance.uIHUD.Halt();
 			StartInterval();
 		}
 	}
@@ -80,6 +90,23 @@ public class RoundManager : MonoBehaviour
 
 		//ballListA.Clear();
 		//ballListB.Clear();
+	}
+
+	public void Deploy()
+	{
+		GameManager.Instance.uIHUD.footerDeploy.SetActive(false);
+		GameManager.Instance.uIHUD.spawnPoints[0].transform.parent.gameObject.SetActive(false);
+
+		//Send ready message.
+		//Get server respond.
+
+		foreach (Ball b in ballListB)
+		{
+			b.GetComponent<SpriteRenderer>().sprite = sprites[(int)(UnityEngine.Random.value * sprites.Length)];
+			b.gameObject.SetActive(true);
+		}
+
+		GameStart();
 	}
 
 	public void GameStart()
@@ -127,8 +154,8 @@ public class RoundManager : MonoBehaviour
 			return;
 		}
 
-		uILaunch.active = true;
-		uILaunch.SwitchButton(true);
+		GameManager.Instance.uILaunch.active = true;
+		GameManager.Instance.uILaunch.SwitchButton(true);
 	}
 
 	//All balls launched, switching players.
@@ -208,11 +235,6 @@ public class RoundManager : MonoBehaviour
 		}
 	}
 
-	private void RunTimer()
-	{
-
-	}
-
 	private void GetServerMsg()
 	{
 		float rad = UnityEngine.Random.value * Mathf.PI * 2;
@@ -222,9 +244,44 @@ public class RoundManager : MonoBehaviour
 		firing = true;
 	}
 
+	public void SelectSpawnPoint(int id)
+	{
+		if (!spawnReady)
+		{
+			spawnReady = true;
+		}
+		GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].color = GameManager.Instance.uIHUD.uncheckColor;
+		curSpawnPoint = id;
+		GameManager.Instance.uIHUD.spawnPoints[id].color = GameManager.Instance.uIHUD.checkColor;
+	}
+
+	public void PlaceBall(int id)
+	{
+		if (!spawnReady)
+		{
+			return;
+		}
+		Ball ball = ballListA[curSpawnPoint];
+		ball.gameObject.SetActive(true);
+		ball.GetComponent<SpriteRenderer>().sprite = sprites[id];
+
+		deployReady = true;
+		foreach (Ball b in ballListA)
+		{
+			if (!b.gameObject.activeSelf)
+			{
+				deployReady = false;
+				break;
+			}
+		}
+		if (deployReady)
+		{
+			GameManager.Instance.uIHUD.deployButton.gameObject.SetActive(true);
+		}
+	}
+
 	public void GetBall(int id)
 	{
-		print(id);
 		if (id < 0)
 		{
 			current = null;
@@ -232,8 +289,8 @@ public class RoundManager : MonoBehaviour
 		else
 		{
 			current = GameManager.Instance.isPlayerA ? ballListA[id] : ballListB[id];
-			uILaunch.ready = true;
-			uILaunch.buttonPressed = true;
+			GameManager.Instance.uILaunch.ready = true;
+			GameManager.Instance.uILaunch.buttonPressed = true;
 		}
 	}
 }

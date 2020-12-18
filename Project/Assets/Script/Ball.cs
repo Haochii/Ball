@@ -33,7 +33,7 @@ public class Ball : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		lastSpeed = curSpeed = 0f;
 		bl = GetComponent<BallLaunch>();
-		healthBar = RoundManager.Instance.uIHUD.healthBar[id];
+		healthBar = GameManager.Instance.uIHUD.healthBar[id];
 		healthFill = healthBar.GetChild(0).GetComponent<Image>();
 	}
 
@@ -65,7 +65,7 @@ public class Ball : MonoBehaviour
 		if (health <= 0)
 		{
 			health = 0;
-			if(isPlayerA)
+			if (isPlayerA)
 			{
 				RoundManager.Instance.ballListA.Remove(this);
 			}
@@ -90,7 +90,7 @@ public class Ball : MonoBehaviour
 				col.GetComponent<Ball>().Damage((int)(lastSpeed / launchSpeed * attackMultiplier));
 			}
 		}
-		else if(col.CompareTag("Wall"))
+		else if (col.CompareTag("Wall"))
 		{
 			col.GetComponent<WallTile>().Damage();
 		}
