@@ -81,7 +81,7 @@ public class RoundManager : MonoBehaviour
 			ticking = false;
 			GameManager.Instance.uILaunch.Halt();
 			GameManager.Instance.uIHUD.Halt();
-			LoginRequist.ucl.rpcCall("play.id_ball_launch", JsonConvert.SerializeObject(null), null);
+			LoginRequist.ucl.rpcCall("play.round_over", null, null);
 		}
 	}
 
@@ -166,7 +166,6 @@ public class RoundManager : MonoBehaviour
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];
 			list[i].GetComponent<SpriteRenderer>().color = colorEnemy;
-			list[i].gameObject.SetActive(true);
 			list[i].transform.position = spawnPoints[i + 3].position;
 		}
 	}
@@ -190,6 +189,16 @@ public class RoundManager : MonoBehaviour
 			}
 		}
 		*/
+		List<Ball> list = GameManager.Instance.isPlayerA ? ballListB : ballListA;
+		for (int i = 0; i < list.Count; i++)
+		{
+			list[i].gameObject.SetActive(true);
+		}
+
+		for (int i = 0; i < GameManager.Instance.uIHUD.healthHolder.childCount; i++)
+		{
+			GameManager.Instance.uIHUD.healthHolder.GetChild(i).gameObject.SetActive(true);
+		}
 		NextRound();
 	}
 
@@ -294,24 +303,23 @@ public class RoundManager : MonoBehaviour
 				//Active player send position check.
 				//Inactive player validate the positions.
 				//Or just send an empty pack.
-				print("Stopped.");
 				LoginRequist.ucl.rpcCall("play.round_over", null, null);
 			}
 		}
 	}
 
-	public void GetServerMsg()
-	{
-		firing = true;
-	}
 	public void GetServerMsg(int id, float rad, float length)
 	{
+		print(rad);
+		print(length);
+		if (GameManager.Instance.isPlayerA)
+			print(id - 3);
 		//float rad = UnityEngine.Random.value * Mathf.PI * 2;
 		//float length = UnityEngine.Random.value;
 		//current = ballListB[(int)(ballListB.Count * UnityEngine.Random.value)];
 		current = GameManager.Instance.isPlayerA ? ballListB[id - 3] : ballListA[id];
-		current.bl.Launch(rad, length);
-		firing = true;
+		current.bl.Launch(rad + Mathf.PI, length);
+		//firing = true;
 	}
 }
 

@@ -15,10 +15,12 @@ public class BallLaunch : MonoBehaviour
 
 	public void Launch(float radian, float force)
 	{
+		print(radian);
+		print(force);
 		rb.velocity = new Vector2(-Mathf.Cos(radian), -Mathf.Sin(radian)) * force * GetComponent<Ball>().launchSpeed;
 		if(RoundManager.Instance.isCurrentPlayerA == GetComponent<Ball>().isPlayerA)
 		{
-			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, radian, force);
+			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, radian);
 			LoginRequist.ucl.rpcCall("play.id_ball_launch", JsonConvert.SerializeObject(ballLaunchClass), null);
 		}
 	}

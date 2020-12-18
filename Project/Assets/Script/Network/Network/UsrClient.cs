@@ -121,7 +121,7 @@ namespace BaseFramework.Network
             BallRdArr opponBallArray = (BallRdArr)JsonConvert.DeserializeObject(retParam.ToString(), typeof(BallRdArr));
 
             int[] types = new int[] { opponBallArray.first, opponBallArray.second, opponBallArray.third };
-            RoundManager.Instance.DeployEnemy(types);
+            //RoundManager.Instance.DeployEnemy(types);
             //ServerModules.BallReadyServer.text = opponBallArray.ToString();
             //DebugLogger.Debug("opponBallArray class :" + opponBallArray.first.ToString());
         }
@@ -160,10 +160,6 @@ namespace BaseFramework.Network
 			{
                 RoundManager.Instance.GetServerMsg(idBallLaunch.ball_id, idBallLaunch.radian, idBallLaunch.force);
 			}
-            else
-			{
-                RoundManager.Instance.GetServerMsg();
-            }
 
             //ServerModules.BallLaunchServer.text = idBallLaunch.radian.ToString();
             //DebugLogger.Debug("idBallLaunch class :" + idBallLaunch.radian.ToString());
@@ -205,7 +201,6 @@ namespace BaseFramework.Network
         private void NotifyNextRound(Message msg)
         {
             //ServerModules.NextRoundServer.text = "下一回合";
-            print("Received next.");
             RoundManager.Instance.NextRound();
         }
 
