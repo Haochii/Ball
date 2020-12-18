@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance;
-
+	public UILaunch uILaunch;
+	public UIHUD uIHUD;
+	public UIMenu uIMenu;
 
 	public bool isPlayerA;
 	public string playerAName;
@@ -31,7 +33,6 @@ public class GameManager : MonoBehaviour
 		//Get If the player is player A.
 
 
-		RoundManager.Instance.GameStart();
 	}
 
 
@@ -47,6 +48,23 @@ public class GameManager : MonoBehaviour
 	private void Reset()
 	{
 		SceneManager.LoadScene(0);
+	}
+
+	public void StartMatchmaking()
+	{
+		uIMenu.menuPanel.gameObject.SetActive(false);
+
+		//Matckmaking...
+		//Done!
+		//Receiving data...
+
+		playerAName = uIMenu.inputField.text;
+		playerBName = "Server";
+		uIHUD.playerA.text = playerAName;
+		uIHUD.playerB.text = playerBName;
+		uIMenu.middlePanel.gameObject.SetActive(false);
+
+		RoundManager.Instance.deploying = true;
 	}
 
 	public void Win(bool isPlayerA)
