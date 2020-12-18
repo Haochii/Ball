@@ -261,12 +261,14 @@ public class RoundManager : MonoBehaviour
 		{
 			return;
 		}
-		Ball ball = ballListA[curSpawnPoint];
+		List<Ball> list;
+		list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
+		Ball ball = list[curSpawnPoint];
 		ball.gameObject.SetActive(true);
 		ball.GetComponent<SpriteRenderer>().sprite = sprites[id];
 
 		deployReady = true;
-		foreach (Ball b in ballListA)
+		foreach (Ball b in list)
 		{
 			if (!b.gameObject.activeSelf)
 			{
