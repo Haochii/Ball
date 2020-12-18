@@ -27,9 +27,12 @@ public class GameManager : MonoBehaviour
 	{
 		//RoundManager.Instance.isPlayerA = true;	//Just for offline test.
 
+		
 
 		RoundManager.Instance.GameStart();
 	}
+
+
 
 	void Update()
 	{

@@ -75,6 +75,7 @@ public class Ball : MonoBehaviour
 			}
 
 			gameObject.SetActive(false);
+			healthBar.gameObject.SetActive(false);
 			RoundManager.Instance.CheckBallList();
 		}
 	}

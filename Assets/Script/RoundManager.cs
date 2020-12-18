@@ -50,39 +50,8 @@ public class RoundManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (timer > 0.1f && firing)
-		{
-			ticking = false;
-			rolling = false;
-			foreach (Ball b in ballListA)
-			{
-				if (!b.stopped)
-				{
-					rolling = true;
-					break;
-				}
-			}
-			foreach (Ball b in ballListB)
-			{
-				if (!b.stopped)
-				{
-					rolling = true;
-					break;
-				}
-			}
-			if (!rolling)
-			{
-				firing = false;
-				StartInterval();
-			}
-		}
-		else if (timer > roundInterval && waiting)
-		{
-			timer = 0f;
-			waiting = false;
-			NextMove();
-		}
-
+		CheckTimer();
+		
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
@@ -207,4 +176,46 @@ public class RoundManager : MonoBehaviour
 			GameManager.Instance.Win(true);
 		}
 	}
+
+	private void CheckTimer()
+	{
+		if (timer > 0.1f && firing)
+		{
+			ticking = false;
+			rolling = false;
+			foreach (Ball b in ballListA)
+			{
+				if (!b.stopped)
+				{
+					rolling = true;
+					break;
+				}
+			}
+			foreach (Ball b in ballListB)
+			{
+				if (!b.stopped)
+				{
+					rolling = true;
+					break;
+				}
+			}
+			if (!rolling)
+			{
+				firing = false;
+				StartInterval();
+			}
+		}
+		else if (timer > roundInterval && waiting)
+		{
+			timer = 0f;
+			waiting = false;
+			NextMove();
+		}
+	}
+
+	private void RunTimer()
+	{
+
+	}
+
 }

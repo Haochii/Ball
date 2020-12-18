@@ -121,6 +121,7 @@ public class UILaunch : MonoBehaviour
 
 	public void Halt()
 	{
+		HideArrow();
 		active = false;
 		ready = false;
 		waiting = waitComplete = false;

@@ -351,7 +351,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &18181253
@@ -1046,7 +1046,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &115137668
@@ -1880,6 +1880,7 @@ GameObject:
   - component: {fileID: 167070299}
   - component: {fileID: 167070301}
   - component: {fileID: 167070300}
+  - component: {fileID: 167070302}
   m_Layer: 5
   m_Name: Ball (2)
   m_TagString: Untagged
@@ -1943,6 +1944,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167070298}
   m_CullTransparentMesh: 0
+--- !u!114 &167070302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167070298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &169338044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,7 +2113,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &178196129
@@ -2470,6 +2514,7 @@ GameObject:
   - component: {fileID: 202659331}
   - component: {fileID: 202659333}
   - component: {fileID: 202659332}
+  - component: {fileID: 202659334}
   m_Layer: 5
   m_Name: Ball (1)
   m_TagString: Untagged
@@ -2533,6 +2578,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202659330}
   m_CullTransparentMesh: 0
+--- !u!114 &202659334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202659330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &207852585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,7 +2876,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &225908103
@@ -4315,6 +4403,7 @@ GameObject:
   - component: {fileID: 305278726}
   - component: {fileID: 305278728}
   - component: {fileID: 305278727}
+  - component: {fileID: 305278729}
   m_Layer: 5
   m_Name: Ball
   m_TagString: Untagged
@@ -4378,6 +4467,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305278725}
   m_CullTransparentMesh: 0
+--- !u!114 &305278729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305278725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &311387612
 GameObject:
   m_ObjectHideFlags: 0
@@ -4965,7 +5097,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &399423542
@@ -6006,7 +6138,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &435040771
@@ -6393,7 +6525,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &461792453
@@ -6780,7 +6912,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &507778484
@@ -6909,7 +7041,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &520041458
@@ -7241,7 +7373,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &530919518
@@ -7370,7 +7502,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &541048131
@@ -8010,7 +8142,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &558370089
@@ -8105,6 +8237,7 @@ GameObject:
   - component: {fileID: 564806770}
   - component: {fileID: 564806772}
   - component: {fileID: 564806771}
+  - component: {fileID: 564806773}
   m_Layer: 5
   m_Name: Ball (1)
   m_TagString: Untagged
@@ -8168,6 +8301,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564806769}
   m_CullTransparentMesh: 0
+--- !u!114 &564806773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564806769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &579995026
 GameObject:
   m_ObjectHideFlags: 0
@@ -10494,7 +10670,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &664595514
@@ -11500,6 +11676,7 @@ GameObject:
   - component: {fileID: 766613707}
   - component: {fileID: 766613709}
   - component: {fileID: 766613708}
+  - component: {fileID: 766613710}
   m_Layer: 5
   m_Name: Ball (2)
   m_TagString: Untagged
@@ -11563,6 +11740,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766613706}
   m_CullTransparentMesh: 0
+--- !u!114 &766613710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766613706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &794289406
 GameObject:
   m_ObjectHideFlags: 0
@@ -13063,7 +13283,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &963194225
@@ -13614,7 +13834,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &998184847
@@ -14419,7 +14639,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1101079236
@@ -15064,7 +15284,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1143002591
@@ -15193,7 +15413,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1148134023
@@ -15557,7 +15777,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1185288531
@@ -15571,6 +15791,7 @@ GameObject:
   - component: {fileID: 1185288532}
   - component: {fileID: 1185288534}
   - component: {fileID: 1185288533}
+  - component: {fileID: 1185288535}
   m_Layer: 5
   m_Name: Ball
   m_TagString: Untagged
@@ -15634,6 +15855,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185288531}
   m_CullTransparentMesh: 0
+--- !u!114 &1185288535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185288531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1186882868
 GameObject:
   m_ObjectHideFlags: 0
@@ -15963,7 +16227,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1202333779
@@ -16221,7 +16485,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1229238485
@@ -16557,7 +16821,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1249657122
@@ -16815,7 +17079,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1320024063
@@ -17718,7 +17982,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1379470904
@@ -18504,7 +18768,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1447342802
@@ -19094,7 +19358,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1498398562
@@ -19495,6 +19759,7 @@ GameObject:
   - component: {fileID: 1543858160}
   - component: {fileID: 1543858162}
   - component: {fileID: 1543858161}
+  - component: {fileID: 1543858163}
   m_Layer: 5
   m_Name: Ball
   m_TagString: Untagged
@@ -19558,6 +19823,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543858159}
   m_CullTransparentMesh: 0
+--- !u!114 &1543858163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543858159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1545037898
 GameObject:
   m_ObjectHideFlags: 0
@@ -19981,6 +20289,7 @@ GameObject:
   - component: {fileID: 1595610044}
   - component: {fileID: 1595610046}
   - component: {fileID: 1595610045}
+  - component: {fileID: 1595610047}
   m_Layer: 5
   m_Name: Ball (2)
   m_TagString: Untagged
@@ -20044,6 +20353,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595610043}
   m_CullTransparentMesh: 0
+--- !u!114 &1595610047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595610043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1599370189
 GameObject:
   m_ObjectHideFlags: 0
@@ -20428,7 +20780,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1616917512
@@ -20634,7 +20986,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1633333897
@@ -22541,7 +22893,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1888176231
@@ -22874,7 +23226,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1894192295
@@ -23390,7 +23742,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1972332974
@@ -23777,7 +24129,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1989325588
@@ -23906,7 +24258,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &1999596810
@@ -24680,7 +25032,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &2059006215
@@ -24772,6 +25124,7 @@ GameObject:
   - component: {fileID: 2064195920}
   - component: {fileID: 2064195922}
   - component: {fileID: 2064195921}
+  - component: {fileID: 2064195923}
   m_Layer: 5
   m_Name: Ball (1)
   m_TagString: Untagged
@@ -24835,6 +25188,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064195919}
   m_CullTransparentMesh: 0
+--- !u!114 &2064195923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064195919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1185288533}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2069256909
 GameObject:
   m_ObjectHideFlags: 0
@@ -24948,17 +25344,17 @@ MonoBehaviour:
   skillIcon: {fileID: 422376013}
   skillBar: {fileID: 525310461}
   ballIcon:
-  - {fileID: 1185288533}
-  - {fileID: 2064195921}
-  - {fileID: 167070300}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ballIconA:
-  - {fileID: 305278727}
-  - {fileID: 202659332}
-  - {fileID: 766613708}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ballIconB:
-  - {fileID: 1543858161}
-  - {fileID: 564806771}
-  - {fileID: 1595610045}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   healthHolder: {fileID: 952340069}
   healthBar:
   - {fileID: 1889603893}
@@ -25483,7 +25879,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &2096605249
@@ -25612,7 +26008,7 @@ MonoBehaviour:
   breakable: 1
   life: 0
   maxLife: 2
-  respawnable: 0
+  respawnable: 1
   respawnLeft: 0
   respawnRounds: 3
 --- !u!1 &2099195112
