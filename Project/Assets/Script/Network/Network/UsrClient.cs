@@ -188,11 +188,28 @@ namespace BaseFramework.Network
 			public Local Ball_1;
 			public Local Ball_2;
 		}
+
+		public class VerifyList
+		{
+			public VerifyList(int[] _intX, int[] _intY)
+			{
+				intX = _intX;
+				intY = _intY;
+			}
+
+			public int[] intX;
+			public int[] intY;
+		}
+
 		private void NotifyCheck(Message msg)
 		{
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
 			DebugLogger.Debug(retParam.ToString());
-			LocalList local = (LocalList)JsonConvert.DeserializeObject(retParam.ToString(), typeof(LocalList));
+			VerifyList verifyList = (VerifyList)JsonConvert.DeserializeObject(retParam.ToString(), typeof(VerifyList));
+			int[] x = verifyList.intX;
+			int[] y = verifyList.intY;
+			RoundManager.Instance.ValidatePosition(x, y);
+			//LocalList local = (LocalList)JsonConvert.DeserializeObject(retParam.ToString(), typeof(LocalList));
 			//Debug.Log("Check class: " + local.Ball_1.x.ToString());
 			//BallMove.ltball.transform.position = new Vector3(asd.x, 0, -5);
 		}
