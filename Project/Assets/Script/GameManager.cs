@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 	public string playerAName;
 	public string playerBName;
 
-	private bool winner;    //A: true; B: false.
+	public bool winner;    //A: true; B: false.
 
 	private void Awake()
 	{

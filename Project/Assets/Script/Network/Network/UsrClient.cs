@@ -237,6 +237,7 @@ namespace BaseFramework.Network
 			//ServerModules.GameOverServer.text = "游戏结束";
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
 			IsWin isWin = (IsWin)JsonConvert.DeserializeObject(retParam.ToString(), typeof(IsWin));
+			RoundManager.Instance.CheckBallList();
 			GameManager.Instance.ConfirmWin(isWin.Win);
 			//DebugLogger.Debug(isWin.Win.ToString());
 		}

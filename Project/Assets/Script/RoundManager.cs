@@ -306,7 +306,7 @@ public class RoundManager : MonoBehaviour
 
 	public void CheckBallList()
 	{
-		print("Lose.");
+		print("Check.");
 		bool allDie = true;
 		foreach (Ball b in ballListA)
 		{
