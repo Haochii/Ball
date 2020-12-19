@@ -20,14 +20,15 @@ public class UILaunch : MonoBehaviour
 	private float length;
 	private bool waiting;
 	private bool waitComplete;
-	private float timer;
+	private float waitTimer;    //检测按下持续时间的计时器
+	private float switchButtonTimer;	//在极短时间内屏蔽更换按钮时的鼠标按下操作，否则将导致点击别的小球按钮也会判定为取消选中
 
 	void Start()
 	{
 		arrow.gameObject.SetActive(false);
 		ready = false;
 		waiting = waitComplete = false;
-		timer = 0f;
+		waitTimer = 0f;
 		//SwitchBotton(false);
 		/*
 		for (int i = 0; i < ballSelectButtons.Length; i++)
@@ -74,8 +75,9 @@ public class UILaunch : MonoBehaviour
 			//点击，冷却时间未到
 			if (Input.GetButtonDown("Fire1") && !waitComplete)
 			{
-				timer = 0f;
-				waiting = true;
+				waitTimer = 0f;
+				switchButtonTimer = 0f;
+				waiting = true; //等待按下足够长的时间
 				SwitchButton(false);
 			}
 			//冷却时间已到
@@ -108,10 +110,10 @@ public class UILaunch : MonoBehaviour
 					Halt();
 					RoundManager.Instance.firing = true;
 				}
-				//选好小球的按钮在松开鼠标后，需要一段极短的时间屏蔽操作
-				else if (timer > 0.05f && !buttonPressed)
+				//选好小球的按钮在松开鼠标后，需要一段极短的时间屏蔽松开鼠标的操作，否则会直接触发else if.
+				else if (waitTimer > 0.05f && !buttonPressed)
 				{
-					timer = 0f;
+					waitTimer = 0f;
 					ready = false;
 					waiting = false;
 					RoundManager.Instance.GetBall(-1);
@@ -119,11 +121,11 @@ public class UILaunch : MonoBehaviour
 				}
 			}
 		}
-
+		
 		if (waiting)
 		{
-			timer += Time.deltaTime;
-			if (timer > waitTime)
+			waitTimer += Time.deltaTime;
+			if (waitTimer > waitTime)
 			{
 				waitComplete = true;
 				waiting = false;
@@ -133,9 +135,11 @@ public class UILaunch : MonoBehaviour
 		//按下按钮，重置冷却与等待
 		if (buttonPressed)
 		{
-			waiting = false;
-			timer = 0f;
-			buttonPressed = !buttonPressed;
+			switchButtonTimer += Time.deltaTime;
+			if(switchButtonTimer > 0.05f)
+			{
+				buttonPressed = false;
+			}
 		}
 	}
 
@@ -173,6 +177,6 @@ public class UILaunch : MonoBehaviour
 		active = false;
 		ready = false;
 		waiting = waitComplete = false;
-		timer = 0f;
+		waitTimer = 0f;
 	}
 }

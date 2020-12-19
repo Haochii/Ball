@@ -28,7 +28,8 @@ public class BallLaunch : MonoBehaviour
 				degree += 180;
 			}
 			*/
-			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree + 180 * 10000);
+			//BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree + 180 * 10000);
+			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree);
 			LoginRequist.ucl.rpcCall("play.id_ball_launch", JsonConvert.SerializeObject(ballLaunchClass), null);
 		}
 	}

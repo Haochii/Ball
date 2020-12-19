@@ -40,8 +40,16 @@ public class Ball : MonoBehaviour
 
 	private void Update()
 	{
-		healthBar.position = transform.position - new Vector3(0f, 1.6f * radius, 0f);
-		healthFill.fillAmount = (float)health / maxHealth;
+		if(GameManager.Instance.isPlayerA)
+		{
+			healthBar.position = transform.position - new Vector3(0f, 1.6f * radius, 0f);
+			healthFill.fillAmount = (float)health / maxHealth;
+		}
+		else
+		{
+			healthBar.position = transform.position + new Vector3(0f, 1.6f * radius, 0f);
+			healthFill.fillAmount = (float)health / maxHealth;
+		}
 	}
 
 	void FixedUpdate()

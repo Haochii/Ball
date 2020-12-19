@@ -107,6 +107,12 @@ public class RoundManager : MonoBehaviour
 
 	public void Initialize()
 	{
+		if (!GameManager.Instance.isPlayerA)
+		{
+			Camera.main.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			GameManager.Instance.uIHUD.MoveSpawnICon();
+		}
+
 		gameStop = false;
 		round = 0;
 		isCurrentPlayerA = false;
@@ -145,10 +151,11 @@ public class RoundManager : MonoBehaviour
 		list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
 		Ball ball = list[curSpawnPoint];
 		ball.gameObject.SetActive(true);
-		ball.transform.position = spawnPoints[curSpawnPoint].position;
+		ball.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
 		ball.type = type;
 		ball.GetComponent<SpriteRenderer>().sprite = sprites[type];
 		ball.GetComponent<SpriteRenderer>().color = colorSelf;
+		ball.healthFill.color = colorSelf;
 
 		deployReady = true;
 		foreach (Ball b in list)
@@ -186,7 +193,8 @@ public class RoundManager : MonoBehaviour
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];
 			list[i].GetComponent<SpriteRenderer>().color = colorEnemy;
-			list[i].transform.position = spawnPoints[i + 3].position;
+			list[i].healthFill.color = colorEnemy;
+			list[i].transform.position = spawnPoints[list[i].id].position;
 		}
 	}
 
@@ -227,6 +235,7 @@ public class RoundManager : MonoBehaviour
 		if (id < 0)
 		{
 			current = null;
+			return;
 		}
 		else
 		{
@@ -409,6 +418,13 @@ public class RoundManager : MonoBehaviour
 
 	public void ValidatePosition(int[] intX, int[] intY)
 	{
+		ballListA[0].transform.position = new Vector2((float)intX[0] / 10000, (float)intY[0] / 10000);
+		ballListA[1].transform.position = new Vector2((float)intX[1] / 10000, (float)intY[1] / 10000);
+		ballListA[2].transform.position = new Vector2((float)intX[2] / 10000, (float)intY[2] / 10000);
+		ballListB[0].transform.position = new Vector2((float)intX[3] / 10000, (float)intY[3] / 10000);
+		ballListB[1].transform.position = new Vector2((float)intX[4] / 10000, (float)intY[4] / 10000);
+		ballListB[2].transform.position = new Vector2((float)intX[5] / 10000, (float)intY[5] / 10000);
+		/*
 		if (GameManager.Instance.isPlayerA)
 		{
 			ballListA[0].transform.position = new Vector2((float)intX[0] / 10000, (float)intY[0] / 10000);
@@ -438,6 +454,7 @@ public class RoundManager : MonoBehaviour
 			ballListB[1].transform.position = new Vector2((float)-intX[4] / 10000, (float)intY[4] / 10000);
 			ballListB[2].transform.position = new Vector2((float)-intX[5] / 10000, (float)intY[5] / 10000);
 		}
+		*/
 	}
 }
 
