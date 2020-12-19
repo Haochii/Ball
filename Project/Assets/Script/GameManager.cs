@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using BaseFramework.Network;
+using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
 	public string playerAName;
 	public string playerBName;
 
+	private bool winner;    //A: true; B: false.
 
 	private void Awake()
 	{
@@ -32,10 +35,8 @@ public class GameManager : MonoBehaviour
 		//isPlayerA = true;	//Just for offline test.
 		//Get If the player is player A.
 
-
+		winner = false;
 	}
-
-
 
 	void Update()
 	{
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void Reset()
+	public void Reset()
 	{
 		SceneManager.LoadScene(0);
 	}
@@ -53,25 +54,66 @@ public class GameManager : MonoBehaviour
 	public void StartMatchmaking()
 	{
 		uIMenu.menuPanel.gameObject.SetActive(false);
-
+		LoginRequist.ucl.rpcCall("combat.start_match", null, null);
 		//Matckmaking...
+	}
+
+	public void EnterMatch(int side)
+	{
 		//Done!
 		//Receiving data...
 
-		playerAName = uIMenu.inputField.text;
-		playerBName = "Server";
+		isPlayerA = side == 0;
+
+		if (isPlayerA)
+		{
+			playerAName = uIMenu.inputField.text;
+			playerBName = "Server"; //Required name from server.
+		}
+		else
+		{
+			playerAName = "Server"; //Required name from server.
+			playerBName = uIMenu.inputField.text;
+		}
+
+
 		uIHUD.playerA.text = playerAName;
 		uIHUD.playerB.text = playerBName;
 		uIMenu.middlePanel.gameObject.SetActive(false);
 
-		RoundManager.Instance.deploying = true;
+		RoundManager.Instance.StartDeploy();
 	}
 
-	public void Win(bool isPlayerA)
+	public void Win(bool winner)
 	{
 		transform.GetComponent<RoundManager>().gameStop = true;
-		//transform.GetComponent<UIHUD>().result.gameObject.SetActive(true);
-		//transform.GetComponent<UIHUD>().result.text = "Player " + id + "Wins!";
-		Debug.Log("Player " + (isPlayerA ? "A" : "B") + " wins!");
+
+		this.winner = winner;
+		IsWin myWin = new IsWin(this.winner);
+		LoginRequist.ucl.rpcCall("play.game_over", JsonConvert.SerializeObject(myWin), null);
 	}
+
+	public void ConfirmWin(bool result)
+	{
+		if (winner == result)
+		{
+			uIMenu.resultPanel.gameObject.SetActive(true);
+			uIMenu.resultText.text = (winner ? playerAName : playerBName) + "Wins!";
+		}
+		else
+		{
+			Debug.LogError("Match result unmatched!!!");
+		}
+
+		uIHUD.Stop();
+	}
+}
+
+public class IsWin
+{
+	public IsWin(bool iIsWin)
+	{
+		Win = iIsWin;
+	}
+	public bool Win;
 }

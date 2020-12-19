@@ -16,7 +16,8 @@ public class Ball : MonoBehaviour
 	public float launchSpeed;
 	public float speedReduce;
 	[Header("Combat")]
-	public bool[] status;
+	public int type;
+	public bool[] status;	//For buffs.
 	public float attackMultiplier;
 	public Transform healthBar;
 	public Image healthFill;
@@ -65,6 +66,7 @@ public class Ball : MonoBehaviour
 		if (health <= 0)
 		{
 			health = 0;
+			/*
 			if (isPlayerA)
 			{
 				RoundManager.Instance.ballListA.Remove(this);
@@ -73,7 +75,7 @@ public class Ball : MonoBehaviour
 			{
 				RoundManager.Instance.ballListB.Remove(this);
 			}
-
+			*/
 			gameObject.SetActive(false);
 			healthBar.gameObject.SetActive(false);
 			RoundManager.Instance.CheckBallList();
