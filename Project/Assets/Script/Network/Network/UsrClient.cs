@@ -282,7 +282,12 @@ namespace BaseFramework.Network
 		private void NotifyMatchSuccess(Message msg)
 		{
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
-			ServerModules.AssignServer.text += "与玩家 " + retParam.ToString() + " 匹配成功\n";
+			UserName username = (UserName)JsonConvert.DeserializeObject(retParam.ToString(), typeof(UserName));
+			GameManager.Instance.SetName(username.name);
+
+			//ServerModules.AssignServer.text = "对手名称" + username.name.ToString();
+			//object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
+			//ServerModules.AssignServer.text += "与玩家 " + retParam.ToString() + " 匹配成功\n";
 			//GameNodeRpc.JumpFlag = true;
 		}
 

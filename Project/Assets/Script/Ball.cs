@@ -36,10 +36,6 @@ public class Ball : MonoBehaviour
 		bl = GetComponent<BallLaunch>();
 		healthBar = GameManager.Instance.uIHUD.healthBar[id];
 		healthFill = healthBar.GetChild(0).GetComponent<Image>();
-		if(!GameManager.Instance.isPlayerA)
-		{
-			transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-		}
 		gameObject.SetActive(false);
 	}
 

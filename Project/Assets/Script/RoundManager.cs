@@ -65,7 +65,7 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckBallMove();
-		
+
 		if (deploying)
 		{
 			deployCountdown -= Time.deltaTime;
@@ -85,7 +85,7 @@ public class RoundManager : MonoBehaviour
 			}
 			DeploySelf();
 		}
-		
+
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
@@ -113,6 +113,14 @@ public class RoundManager : MonoBehaviour
 		{
 			Camera.main.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
 			GameManager.Instance.uIHUD.MoveSpawnICon();
+			foreach (Ball b in ballListA)
+			{
+				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			}
+			foreach (Ball b in ballListB)
+			{
+				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			}
 		}
 
 		gameStop = false;
@@ -369,7 +377,7 @@ public class RoundManager : MonoBehaviour
 				timer = 0f;
 
 				//Active player send position check.
-				if (GameManager.Instance.isPlayerA)
+				if (GameManager.Instance.isPlayerA == isCurrentPlayerA)
 				{
 					SendPosition();
 				}

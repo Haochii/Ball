@@ -15,10 +15,12 @@ public class BallLaunch : MonoBehaviour
 
 	public void Launch(int degree, int force)
 	{
+		/*
 		if(!GameManager.Instance.isPlayerA)
 		{
 			degree += 180 * 10000;
 		}
+		*/
 		float deg = (float)degree / 10000;
 		float rad = deg * Mathf.Deg2Rad;
 		float len = (float)force / 10000;

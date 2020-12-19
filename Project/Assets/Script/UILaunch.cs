@@ -97,7 +97,10 @@ public class UILaunch : MonoBehaviour
 					int degreeInt = (int)(degree * 10000);
 
 					int forceInt = (int)(length / aimRingRadius * 10000);
-
+					if(!GameManager.Instance.isPlayerA)
+					{
+						degreeInt += 180 * 10000;
+					}
 					print("LocalDeg: " + degreeInt);
 					print("LocalForce: " + forceInt);
 					RoundManager.Instance.current.bl.Launch(degreeInt, forceInt);
