@@ -121,7 +121,7 @@ namespace BaseFramework.Network
             BallRdArr opponBallArray = (BallRdArr)JsonConvert.DeserializeObject(retParam.ToString(), typeof(BallRdArr));
 
             int[] types = new int[] { opponBallArray.first, opponBallArray.second, opponBallArray.third };
-            //RoundManager.Instance.DeployEnemy(types);
+            RoundManager.Instance.DeployEnemy(types);
             //ServerModules.BallReadyServer.text = opponBallArray.ToString();
             //DebugLogger.Debug("opponBallArray class :" + opponBallArray.first.ToString());
         }
