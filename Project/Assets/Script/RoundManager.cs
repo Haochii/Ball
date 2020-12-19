@@ -20,7 +20,7 @@ public class RoundManager : MonoBehaviour
 	public bool deploying;
 	public bool firing;
 	public bool isCurrentPlayerA = true;       //If the controlling player is player A.
-										//public bool isPlayerA;			//If player himself is player A.
+											   //public bool isPlayerA;			//If player himself is player A.
 	public bool gameStop;
 	public List<Ball> ballListA;
 	public List<Ball> ballListB;
@@ -98,7 +98,7 @@ public class RoundManager : MonoBehaviour
 			ticking = false;
 			GameManager.Instance.uILaunch.Halt();
 			GameManager.Instance.uIHUD.Halt();
-			if(isCurrentPlayerA == GameManager.Instance.isPlayerA)
+			if (isCurrentPlayerA == GameManager.Instance.isPlayerA)
 			{
 				LoginRequist.ucl.rpcCall("play.round_over", null, null);
 			}
@@ -289,15 +289,15 @@ public class RoundManager : MonoBehaviour
 	{
 		print("Lose.");
 		bool allDie = true;
-		foreach(Ball b in ballListA)
+		foreach (Ball b in ballListA)
 		{
-			if(b.gameObject.activeSelf)
+			if (b.gameObject.activeSelf)
 			{
 				allDie = false;
 				break;
 			}
 		}
-		if(allDie)
+		if (allDie)
 		{
 			GameManager.Instance.Win(false);
 			return;
@@ -358,8 +358,13 @@ public class RoundManager : MonoBehaviour
 				timer = 0f;
 
 				//Active player send position check.
+				if (GameManager.Instance.isPlayerA)
+				{
+					SendPosition();
+				}
 				//Inactive player validate the positions.
-				//Or just send an empty pack.
+				//Do a little pause to compensate the lag.
+
 				LoginRequist.ucl.rpcCall("play.round_over", null, null);
 			}
 		}
@@ -378,6 +383,62 @@ public class RoundManager : MonoBehaviour
 		current.bl.Launch(deg, length);
 		//firing = true;
 	}
+
+	public void SendPosition()
+	{
+		int[] x, y;
+		x = new int[6];
+		y = new int[6];
+		x[0] = (int)(ballListA[0].transform.position.x * 10000);
+		x[1] = (int)(ballListA[1].transform.position.x * 10000);
+		x[2] = (int)(ballListA[2].transform.position.x * 10000);
+		x[3] = (int)(ballListB[0].transform.position.x * 10000);
+		x[4] = (int)(ballListB[1].transform.position.x * 10000);
+		x[5] = (int)(ballListB[2].transform.position.x * 10000);
+
+		y[0] = (int)(ballListA[0].transform.position.y * 10000);
+		y[1] = (int)(ballListA[1].transform.position.y * 10000);
+		y[2] = (int)(ballListA[2].transform.position.y * 10000);
+		y[3] = (int)(ballListB[0].transform.position.y * 10000);
+		y[4] = (int)(ballListB[1].transform.position.y * 10000);
+		y[5] = (int)(ballListB[2].transform.position.y * 10000);
+
+		VerifyList verifyList = new VerifyList(x, y);
+		LoginRequist.ucl.rpcCall("location.get_location", JsonConvert.SerializeObject(verifyList), null);
+	}
+
+	public void ValidatePosition(int[] intX, int[] intY)
+	{
+		if (GameManager.Instance.isPlayerA)
+		{
+			ballListA[0].transform.position = new Vector2((float)intX[0] / 10000, (float)intY[0] / 10000);
+			ballListA[1].transform.position = new Vector2((float)intX[1] / 10000, (float)intY[1] / 10000);
+			ballListA[2].transform.position = new Vector2((float)intX[2] / 10000, (float)intY[2] / 10000);
+			ballListB[0].transform.position = new Vector2((float)intX[3] / 10000, (float)intY[3] / 10000);
+			ballListB[1].transform.position = new Vector2((float)intX[4] / 10000, (float)intY[4] / 10000);
+			ballListB[2].transform.position = new Vector2((float)intX[5] / 10000, (float)intY[5] / 10000);
+		}
+		else
+		{
+			for (int i = 0; i < intY.Length; i++)
+			{
+				if (intY[i] > 0)
+				{
+					intY[i] = 10000 - intY[i];
+				}
+				else
+				{
+					intY[i] = -10000 - intY[i];
+				}
+			}
+			ballListA[0].transform.position = new Vector2((float)-intX[0] / 10000, (float)intY[0] / 10000);
+			ballListA[1].transform.position = new Vector2((float)-intX[1] / 10000, (float)intY[1] / 10000);
+			ballListA[2].transform.position = new Vector2((float)-intX[2] / 10000, (float)intY[2] / 10000);
+			ballListB[0].transform.position = new Vector2((float)-intX[3] / 10000, (float)intY[3] / 10000);
+			ballListB[1].transform.position = new Vector2((float)-intX[4] / 10000, (float)intY[4] / 10000);
+			ballListB[2].transform.position = new Vector2((float)-intX[5] / 10000, (float)intY[5] / 10000);
+		}
+	}
 }
 
 class BallRdArr
@@ -392,4 +453,16 @@ class BallRdArr
 	public int first;
 	public int second;
 	public int third;
+}
+
+public class VerifyList
+{
+	public VerifyList(int[] _intX, int[] _intY)
+	{
+		intX = _intX;
+		intY = _intY;
+	}
+
+	public int[] intX;
+	public int[] intY;
 }
