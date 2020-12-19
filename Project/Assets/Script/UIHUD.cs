@@ -56,6 +56,10 @@ public class UIHUD : MonoBehaviour
 
 	void Update()
 	{
+		if(RoundManager.Instance.deploying)
+		{
+			countDown.text = ((int)RoundManager.Instance.deployCountdown).ToString();
+		}
 		countDown.text = ((int)RoundManager.Instance.countDown).ToString();
 
 		if (RoundManager.Instance.isCurrentPlayerA)

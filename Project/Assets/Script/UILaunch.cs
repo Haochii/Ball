@@ -158,7 +158,8 @@ public class UILaunch : MonoBehaviour
 
 	private void RotateArrow(float length)
 	{
-		arrow.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg + 180f);
+		float fireAngle = GameManager.Instance.isPlayerA ? angle : angle + Mathf.PI;
+		arrow.rotation = Quaternion.Euler(0f, 0f, fireAngle * Mathf.Rad2Deg + 180f);
 		arrow.localScale = new Vector3(length / aimRingRadius * maxArrowScale, length / aimRingRadius * maxArrowScale);
 	}
 

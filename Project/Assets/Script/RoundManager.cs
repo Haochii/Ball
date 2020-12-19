@@ -16,6 +16,7 @@ public class RoundManager : MonoBehaviour
 	public float deployTime = 30f;
 	public float roundTime = 15f;
 	public float countDown = 999f;
+	public float deployCountdown = 30f;
 	public float roundInterval = 1f;
 	public bool deploying;
 	public bool firing;
@@ -53,7 +54,8 @@ public class RoundManager : MonoBehaviour
 	{
 		isCurrentPlayerA = true;
 		curSpawnPoint = 0;
-		countDown = roundTime;
+		deployTime = 30f;
+		deployCountdown = deployTime;
 		deploying = spawnReady = deployReady = false;
 		rolling = false;
 		waiting = false;
@@ -63,15 +65,15 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckBallMove();
-		/*
+		
 		if (deploying)
 		{
-			timer += Time.deltaTime;
+			deployCountdown -= Time.deltaTime;
+			GameManager.Instance.uIHUD.countDown.text = ((int)timer).ToString();
 		}
-		if (deploying && timer >= deployTime)
+		if (deploying && deployCountdown <= 0f)
 		{
 			deploying = false;
-			timer = 0f;
 			List<Ball> list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
 			foreach (Ball b in list)
 			{
@@ -83,7 +85,7 @@ public class RoundManager : MonoBehaviour
 			}
 			DeploySelf();
 		}
-		*/
+		
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
