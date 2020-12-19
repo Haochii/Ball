@@ -19,7 +19,7 @@ public class RoundManager : MonoBehaviour
 	public float roundInterval = 1f;
 	public bool deploying;
 	public bool firing;
-	public bool isCurrentPlayerA;       //If the controlling player is player A.
+	public bool isCurrentPlayerA = true;       //If the controlling player is player A.
 										//public bool isPlayerA;			//If player himself is player A.
 	public bool gameStop;
 	public List<Ball> ballListA;
@@ -51,6 +51,7 @@ public class RoundManager : MonoBehaviour
 
 	void Start()
 	{
+		isCurrentPlayerA = true;
 		curSpawnPoint = 0;
 		countDown = roundTime;
 		deploying = spawnReady = deployReady = false;
@@ -62,7 +63,6 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckBallMove();
-		//Timer for force deploying balls.
 		/*
 		if (deploying)
 		{
@@ -98,7 +98,10 @@ public class RoundManager : MonoBehaviour
 			ticking = false;
 			GameManager.Instance.uILaunch.Halt();
 			GameManager.Instance.uIHUD.Halt();
-			LoginRequist.ucl.rpcCall("play.round_over", null, null);
+			if(isCurrentPlayerA == GameManager.Instance.isPlayerA)
+			{
+				LoginRequist.ucl.rpcCall("play.round_over", null, null);
+			}
 		}
 	}
 
@@ -228,6 +231,10 @@ public class RoundManager : MonoBehaviour
 		else
 		{
 			current = GameManager.Instance.isPlayerA ? ballListA[id] : ballListB[id];
+			if (!current.gameObject.activeSelf)
+			{
+				return;
+			}
 			GameManager.Instance.uILaunch.ready = true;
 			GameManager.Instance.uILaunch.buttonPressed = true;
 		}
@@ -268,7 +275,7 @@ public class RoundManager : MonoBehaviour
 			return;
 		}
 		*/
-		if (!isCurrentPlayerA)
+		if (isCurrentPlayerA != GameManager.Instance.isPlayerA)
 		{
 			//GetServerMsg(); //For local use only.
 			return;
@@ -280,6 +287,38 @@ public class RoundManager : MonoBehaviour
 
 	public void CheckBallList()
 	{
+		print("Lose.");
+		bool allDie = true;
+		foreach(Ball b in ballListA)
+		{
+			if(b.gameObject.activeSelf)
+			{
+				allDie = false;
+				break;
+			}
+		}
+		if(allDie)
+		{
+			GameManager.Instance.Win(false);
+			return;
+		}
+
+		allDie = true;
+		foreach (Ball b in ballListB)
+		{
+			if (b.gameObject.activeSelf)
+			{
+				allDie = false;
+				break;
+			}
+		}
+		if (allDie)
+		{
+			GameManager.Instance.Win(true);
+			return;
+		}
+
+		/*
 		if (ballListA.Count == 0)
 		{
 			GameManager.Instance.Win(false);
@@ -288,6 +327,7 @@ public class RoundManager : MonoBehaviour
 		{
 			GameManager.Instance.Win(true);
 		}
+		*/
 	}
 
 	private void CheckBallMove()
@@ -329,10 +369,12 @@ public class RoundManager : MonoBehaviour
 	{
 		print("ServerDeg: " + deg);
 		print("ServerLen: " + length);
+		if (GameManager.Instance.isPlayerA)
+			print(id - 3);
 		//float rad = UnityEngine.Random.value * Mathf.PI * 2;
 		//float length = UnityEngine.Random.value;
 		//current = ballListB[(int)(ballListB.Count * UnityEngine.Random.value)];
-		current = GameManager.Instance.isPlayerA ? ballListB[id] : ballListA[id];
+		current = GameManager.Instance.isPlayerA ? ballListB[id - 3] : ballListA[id];
 		current.bl.Launch(deg, length);
 		//firing = true;
 	}

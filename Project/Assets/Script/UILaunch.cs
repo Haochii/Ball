@@ -42,6 +42,7 @@ public class UILaunch : MonoBehaviour
 	{
 		if (active)
 		{
+			//直接点选小球选中，弃用。
 			/*
 			if (Input.GetButtonDown("Fire1"))
 			{
@@ -68,15 +69,16 @@ public class UILaunch : MonoBehaviour
 			return;
 		}
 
-		if (ready)
+		if (ready)	//选中小球，可以拖动
 		{
+			//点击，冷却时间未到
 			if (Input.GetButtonDown("Fire1") && !waitComplete)
 			{
 				timer = 0f;
 				waiting = true;
 				SwitchButton(false);
 			}
-
+			//冷却时间已到
 			if (Input.GetButton("Fire1") && waitComplete)
 			{
 				endPos = Input.mousePosition;
@@ -84,7 +86,7 @@ public class UILaunch : MonoBehaviour
 				length = Vector2.Distance(endPos, startPos) < aimRingRadius ? Vector2.Distance(endPos, startPos) : aimRingRadius;
 				RotateArrow(length);
 			}
-
+			//松开鼠标
 			if (Input.GetButtonUp("Fire1"))
 			{
 				if (waitComplete)
@@ -94,6 +96,8 @@ public class UILaunch : MonoBehaviour
 
 					int forceInt = (int)(length / aimRingRadius * 10000);
 
+					print("LocalDeg: " + degreeInt);
+					print("LocalForce: " + forceInt);
 					RoundManager.Instance.current.bl.Launch(degreeInt, forceInt);
 					/*
 					HideArrow();
@@ -104,6 +108,7 @@ public class UILaunch : MonoBehaviour
 					Halt();
 					RoundManager.Instance.firing = true;
 				}
+				//选好小球的按钮在松开鼠标后，需要一段极短的时间屏蔽操作
 				else if (timer > 0.05f && !buttonPressed)
 				{
 					timer = 0f;
@@ -125,7 +130,7 @@ public class UILaunch : MonoBehaviour
 				ShowArrow();
 			}
 		}
-
+		//按下按钮，重置冷却与等待
 		if (buttonPressed)
 		{
 			waiting = false;

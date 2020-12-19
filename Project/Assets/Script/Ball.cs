@@ -43,6 +43,7 @@ public class Ball : MonoBehaviour
 		healthBar.position = transform.position - new Vector3(0f, 1.6f * radius, 0f);
 		healthFill.fillAmount = (float)health / maxHealth;
 	}
+
 	void FixedUpdate()
 	{
 		lastSpeed = curSpeed;
@@ -65,6 +66,7 @@ public class Ball : MonoBehaviour
 		if (health <= 0)
 		{
 			health = 0;
+			/*
 			if (isPlayerA)
 			{
 				RoundManager.Instance.ballListA.Remove(this);
@@ -73,7 +75,7 @@ public class Ball : MonoBehaviour
 			{
 				RoundManager.Instance.ballListB.Remove(this);
 			}
-
+			*/
 			gameObject.SetActive(false);
 			healthBar.gameObject.SetActive(false);
 			RoundManager.Instance.CheckBallList();

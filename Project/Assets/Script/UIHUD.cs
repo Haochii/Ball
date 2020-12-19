@@ -22,6 +22,9 @@ public class UIHUD : MonoBehaviour
 	public Color uncheckColor;
 	public GameObject footerDeploy;
 
+	public Color isControlling;
+	public Color notControlling;
+
 	/*
 	private void Awake()
 	{
@@ -34,7 +37,9 @@ public class UIHUD : MonoBehaviour
 
 	void Start()
 	{
-		foreach(Image image in spawnPoints)
+		//RoundManager.Instance.nextRound.AddListener(ChangePlayerNameColor);
+
+		foreach (Image image in spawnPoints)
 		{
 			image.color = uncheckColor;
 		}
@@ -52,10 +57,47 @@ public class UIHUD : MonoBehaviour
 	void Update()
 	{
 		countDown.text = ((int)RoundManager.Instance.countDown).ToString();
+
+		if (RoundManager.Instance.isCurrentPlayerA)
+		{
+			playerA.color = isControlling;
+			playerB.color = notControlling;
+		}
+		else
+		{
+			playerB.color = isControlling;
+			playerA.color = notControlling;
+		}
+	}
+
+	private void OnDestroy()
+	{
+		RoundManager.Instance.nextRound.RemoveListener(ChangePlayerNameColor);
+	}
+
+	public void ChangePlayerNameColor()
+	{
+		/*
+		if (RoundManager.Instance.isCurrentPlayerA)
+		{
+			playerA.color = isControlling;
+			playerB.color = notControlling;
+		}
+		else
+		{
+			playerB.color = isControlling;
+			playerA.color = notControlling;
+		}
+		*/
 	}
 
 	public void Halt()
 	{
+		
+	}
 
+	public void Stop()
+	{
+		enabled = false;
 	}
 }

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 	public string playerAName;
 	public string playerBName;
 
-	private bool winner;	//A: true; B: false.
+	private bool winner;    //A: true; B: false.
 
 	private void Awake()
 	{
@@ -65,8 +65,18 @@ public class GameManager : MonoBehaviour
 
 		isPlayerA = side == 0;
 
-		playerAName = uIMenu.inputField.text;
-		playerBName = "Server";	//Required name from server.
+		if (isPlayerA)
+		{
+			playerAName = uIMenu.inputField.text;
+			playerBName = "Server"; //Required name from server.
+		}
+		else
+		{
+			playerAName = "Server"; //Required name from server.
+			playerBName = uIMenu.inputField.text;
+		}
+
+
 		uIHUD.playerA.text = playerAName;
 		uIHUD.playerB.text = playerBName;
 		uIMenu.middlePanel.gameObject.SetActive(false);
@@ -74,26 +84,28 @@ public class GameManager : MonoBehaviour
 		RoundManager.Instance.StartDeploy();
 	}
 
-	public void Win(bool isPlayerA)
+	public void Win(bool winner)
 	{
 		transform.GetComponent<RoundManager>().gameStop = true;
 
-		winner = isPlayerA;
-		IsWin myWin = new IsWin(winner);
+		this.winner = winner;
+		IsWin myWin = new IsWin(this.winner);
 		LoginRequist.ucl.rpcCall("play.game_over", JsonConvert.SerializeObject(myWin), null);
 	}
 
 	public void ConfirmWin(bool result)
 	{
-		if(winner == result)
+		if (winner == result)
 		{
 			uIMenu.resultPanel.gameObject.SetActive(true);
-			uIMenu.resultText.text = winner ? playerAName : playerBName + "Wins!";
+			uIMenu.resultText.text = (winner ? playerAName : playerBName) + "Wins!";
 		}
 		else
 		{
 			Debug.LogError("Match result unmatched!!!");
 		}
+
+		uIHUD.Stop();
 	}
 }
 
