@@ -89,7 +89,12 @@ public class UILaunch : MonoBehaviour
 			{
 				if (waitComplete)
 				{
-					RoundManager.Instance.current.bl.Launch(angle, length / aimRingRadius);
+					float degree = angle * Mathf.Rad2Deg;
+					int degreeInt = (int)(degree * 10000);
+
+					int forceInt = (int)(length / aimRingRadius * 10000);
+
+					RoundManager.Instance.current.bl.Launch(degreeInt, forceInt);
 					/*
 					HideArrow();
 					SwitchBotton(false);
@@ -99,7 +104,7 @@ public class UILaunch : MonoBehaviour
 					Halt();
 					RoundManager.Instance.firing = true;
 				}
-				else if(timer > 0.05f && !buttonPressed)
+				else if (timer > 0.05f && !buttonPressed)
 				{
 					timer = 0f;
 					ready = false;

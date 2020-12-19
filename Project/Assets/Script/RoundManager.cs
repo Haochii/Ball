@@ -13,7 +13,8 @@ public class RoundManager : MonoBehaviour
 	public int round;
 	public int movesLeft;
 	public int maxMoves = 1;
-	public float roundTime;
+	public float deployTime = 30f;
+	public float roundTime = 15f;
 	public float countDown = 999f;
 	public float roundInterval = 1f;
 	public bool deploying;
@@ -60,13 +61,29 @@ public class RoundManager : MonoBehaviour
 
 	private void Update()
 	{
-		CheckTimer();
-
+		CheckBallMove();
+		//Timer for force deploying balls.
+		/*
 		if (deploying)
 		{
-
+			timer += Time.deltaTime;
 		}
-
+		if (deploying && timer >= deployTime)
+		{
+			deploying = false;
+			timer = 0f;
+			List<Ball> list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
+			foreach (Ball b in list)
+			{
+				if (!b.gameObject.activeSelf)
+				{
+					curSpawnPoint = list.IndexOf(b);
+					PlaceBall(UnityEngine.Random.Range(0, sprites.Length - 1));
+				}
+			}
+			DeploySelf();
+		}
+		*/
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
@@ -273,7 +290,7 @@ public class RoundManager : MonoBehaviour
 		}
 	}
 
-	private void CheckTimer()
+	private void CheckBallMove()
 	{
 		if (timer > 0.1f && firing)
 		{
@@ -308,17 +325,15 @@ public class RoundManager : MonoBehaviour
 		}
 	}
 
-	public void GetServerMsg(int id, float rad, float length)
+	public void GetServerMsg(int id, int deg, int length)
 	{
-		print(rad);
-		print(length);
-		if (GameManager.Instance.isPlayerA)
-			print(id - 3);
+		print("ServerDeg: " + deg);
+		print("ServerLen: " + length);
 		//float rad = UnityEngine.Random.value * Mathf.PI * 2;
 		//float length = UnityEngine.Random.value;
 		//current = ballListB[(int)(ballListB.Count * UnityEngine.Random.value)];
-		current = GameManager.Instance.isPlayerA ? ballListB[id - 3] : ballListA[id];
-		current.bl.Launch(rad + Mathf.PI, length);
+		current = GameManager.Instance.isPlayerA ? ballListB[id] : ballListA[id];
+		current.bl.Launch(deg, length);
 		//firing = true;
 	}
 }
