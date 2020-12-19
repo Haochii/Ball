@@ -42,7 +42,6 @@ public class Ball : MonoBehaviour
 		healthBar.position = transform.position - new Vector3(0f, 1.6f * radius, 0f);
 		healthFill.fillAmount = (float)health / maxHealth;
 	}
-
 	void FixedUpdate()
 	{
 		lastSpeed = curSpeed;
