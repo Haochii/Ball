@@ -18,16 +18,21 @@ public class WallTile : MonoBehaviour
 	public bool respawnable;
 	public int respawnLeft;
 	public int respawnRounds;
+	public Sprite []wall;//0unbreakable,1breakable1
+	private SpriteRenderer sr;
 
 	private void Start()
 	{
+		sr = GetComponent<SpriteRenderer>();
 		if(breakable)
 		{
 			life = maxLife;
+			sr.sprite = wall[maxLife];
 		}
 		if(respawnable)
 		{
 			RoundManager.Instance.nextRound.AddListener(Restore);
+			sr.sprite = wall[3];
 		}
 	}
 
@@ -48,6 +53,7 @@ public class WallTile : MonoBehaviour
 			{
 				Break();
 			}
+			sr.sprite = wall[life];
 		}
 	}
 
@@ -73,6 +79,7 @@ public class WallTile : MonoBehaviour
 		{
 			life = maxLife;
 			gameObject.SetActive(true);
+			sr.sprite = wall[maxLife];
 			//particle
 		}
 	}
