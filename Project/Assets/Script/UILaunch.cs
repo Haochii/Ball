@@ -13,6 +13,7 @@ public class UILaunch : MonoBehaviour
 	public float aimRingRadius;
 	public float maxArrowScale;
 	public Button[] ballSelectButtons;
+	public Image[] ballDeadIcons;
 	public Image ballLocIcon;
 	public bool buttonPressed;
 	public Color normalColor;
@@ -180,6 +181,7 @@ public class UILaunch : MonoBehaviour
 			waitComplete = false;
 			if (ui.CompareTag("BallSelectButton"))
 			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.chooseBall);
 				int id = ui.transform.GetSiblingIndex();
 				RoundManager.Instance.GetBall(id);
 			}
@@ -216,6 +218,8 @@ public class UILaunch : MonoBehaviour
 				RoundManager.Instance.current.bl.Launch(degreeInt, forceInt);
 				RoundManager.Instance.firing = true;
 				Halt();
+
+				AudioManager.Instance.playMusic(AudioManager.Instance.shoot);
 			}
 			else
 			{
@@ -242,6 +246,7 @@ public class UILaunch : MonoBehaviour
 
 	private void ShowArrow()
 	{
+		AudioManager.Instance.playMusic(AudioManager.Instance.aim);
 		arrow.position = RoundManager.Instance.current.transform.position;
 		arrow.localScale = Vector3.zero;
 		startPos = Input.mousePosition;

@@ -28,13 +28,15 @@ public class RoundManager : MonoBehaviour
 	public List<Ball> ballListB;
 	public Ball current;
 	public Sprite[] sprites;
+	public Sprite[] buttonSprites;
 	public Transform[] spawnPoints;
 	public Sprite healthBarSelf;
 	public Sprite healthBarEnemy;
-	public Color colorSelf;
-	public Color colorEnemy;
+	public Sprite sphereSelf;
+	public Sprite sphereEnemy;
 	public Color colorUncheck;
 	public Color colorCheck;
+	public GameObject[] infos;
 
 	public int skillPointPerCollision;
 	public int skillPointPerDamage;
@@ -190,6 +192,7 @@ public class RoundManager : MonoBehaviour
 	public void StartDeploy()
 	{
 		Initialize();
+		infos[0].GetComponent<RoundInfo>().ShowRoundInfo();
 		//Start deploy countdown.
 		deploying = true;
 	}
@@ -209,7 +212,7 @@ public class RoundManager : MonoBehaviour
 		spawningBall.gameObject.SetActive(true);
 		spawningBall.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
 		spawningBall.GetComponent<SpriteRenderer>().sprite = sprites[curSpawnType];
-		spawningBall.GetComponent<SpriteRenderer>().color = colorSelf;
+		spawningBall.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sphereSelf;
 		//spawningBall.healthFill.color = colorSelf;
 		spawningBall.healthFill.sprite = healthBarSelf;
 
@@ -234,6 +237,7 @@ public class RoundManager : MonoBehaviour
 
 	public void PlaceBall(int type)
 	{
+		AudioManager.Instance.playMusic(AudioManager.Instance.chooseBall);
 		if (!spawnReady)
 		{
 			spawnReady = true;
@@ -329,6 +333,10 @@ public class RoundManager : MonoBehaviour
 					break;
 			}*/
 		}
+		for (int i = 0; i < list.Count; i++)
+		{
+			GameManager.Instance.uILaunch.ballSelectButtons[i].GetComponent<Image>().sprite = buttonSprites[list[i].type];
+		}
 
 		BallRdArr ballRdArr = new BallRdArr(list[0].type, list[1].type, list[2].type);
 		LoginRequist.ucl.rpcCall("play.ball_ready", JsonConvert.SerializeObject(ballRdArr), null);
@@ -386,7 +394,7 @@ public class RoundManager : MonoBehaviour
 		for (int i = 0; i < list.Count; i++)
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];
-			list[i].GetComponent<SpriteRenderer>().color = colorEnemy;
+			list[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = sphereEnemy;
 			list[i].healthFill.sprite = healthBarEnemy;
 			//list[i].healthFill.color = colorEnemy;
 			list[i].transform.position = spawnPoints[list[i].id].position;
@@ -412,6 +420,9 @@ public class RoundManager : MonoBehaviour
 			}
 		}
 		*/
+
+		AudioManager.Instance.playMusic(AudioManager.Instance.start);
+
 		List<Ball> list = GameManager.Instance.isPlayerA ? ballListB : ballListA;
 		for (int i = 0; i < list.Count; i++)
 		{
@@ -423,15 +434,16 @@ public class RoundManager : MonoBehaviour
 			GameManager.Instance.uIHUD.healthHolder.GetChild(i).gameObject.SetActive(true);
 		}
 
-		foreach(Ball b in ballListA)
+		foreach (Ball b in ballListA)
 		{
 			b.health = b.maxHealth;
 		}
-		foreach(Ball b in ballListB)
+		foreach (Ball b in ballListB)
 		{
 			b.health = b.maxHealth;
 		}
 
+		infos[1].GetComponent<RoundInfo>().ShowRoundInfo();
 		NextRound();
 	}
 
@@ -463,7 +475,7 @@ public class RoundManager : MonoBehaviour
 	//All balls launched, switching players.
 	public void NextRound()
 	{
-
+		print("LocalNext");
 		//Server switching player.
 
 		if (gameStop)
@@ -497,10 +509,20 @@ public class RoundManager : MonoBehaviour
 		*/
 		if (isCurrentPlayerA != GameManager.Instance.isPlayerA)
 		{
+			infos[3].GetComponent<RoundInfo>().ShowRoundInfo();
+			foreach(Button b in GameManager.Instance.uILaunch.ballSelectButtons)
+			{
+				b.GetComponent<Image>().color = colorUncheck;
+			}
 			//GetServerMsg(); //For local use only.
 			return;
 		}
 
+		infos[2].GetComponent<RoundInfo>().ShowRoundInfo();
+		foreach (Button b in GameManager.Instance.uILaunch.ballSelectButtons)
+		{
+			b.GetComponent<Image>().color = colorCheck;
+		}
 		GameManager.Instance.uILaunch.ready = true;
 		//GameManager.Instance.uILaunch.SwitchButtonInteract(true);
 	}
@@ -586,6 +608,7 @@ public class RoundManager : MonoBehaviour
 				//Do a little pause to compensate the lag.
 
 				LoginRequist.ucl.rpcCall("play.round_over", null, null);
+				//LoginRequist.ucl.rpcCall("play.all_balls_stop", null, null);
 			}
 		}
 	}

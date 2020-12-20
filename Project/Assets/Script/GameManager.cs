@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 	public bool winner;    //A: true; B: false.
 	public float[] buffChance;
 
+	public Transform canvas;
+
 	private void Awake()
 	{
 		if (Instance == null)
@@ -109,6 +111,16 @@ public class GameManager : MonoBehaviour
 		{
 			uIMenu.resultPanel.gameObject.SetActive(true);
 			uIMenu.resultText.text = (winner ? playerAName : playerBName) + "Wins!";
+
+			if(result == isPlayerA)
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.win);
+			}
+			else
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.lose);
+			}
+
 		}
 		else
 		{

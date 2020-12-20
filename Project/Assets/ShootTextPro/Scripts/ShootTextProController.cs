@@ -323,6 +323,11 @@ public class ShootTextProController : MonoBehaviour
         shootTextInfo.initializedHorizontalPositionOffset = initializedHorizontalPositionOffset;
         shootTextInfo.cacheTranform = tempTransform;
 
+        if(content[0]=='+')
+		{
+            shootTextInfo.animationType = TextAnimationType.Normal;
+		}
+
         CreatShootText(shootTextInfo);
     }
     public void CreatShootText(ShootTextInfo shootTextInfo)

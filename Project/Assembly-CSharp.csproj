@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scenes\Hello.cs" />
     <Compile Include="Assets\Scenes\LoginRequist.cs" />
     <Compile Include="Assets\Scenes\ServerModules.cs" />
+    <Compile Include="Assets\Script\AudioManager.cs" />
     <Compile Include="Assets\Script\Ball.cs" />
     <Compile Include="Assets\Script\BallLaunch.cs" />
     <Compile Include="Assets\Script\BuffManager.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\Script\RoundManager.cs" />
     <Compile Include="Assets\Script\SkillManager.cs" />
     <Compile Include="Assets\Script\TimerAlert.cs" />
+    <Compile Include="Assets\Script\UIDamageText.cs" />
     <Compile Include="Assets\Script\UIHUD.cs" />
     <Compile Include="Assets\Script\UILaunch.cs" />
     <Compile Include="Assets\Script\UIMenu.cs" />

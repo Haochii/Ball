@@ -72,7 +72,8 @@ public class WallTile : MonoBehaviour
 
 	public void Break()
 	{
-		if(respawnable)
+		AudioManager.Instance.playMusic(AudioManager.Instance.breakWall);
+		if (respawnable)
 		{
 			respawnLeft = respawnRounds;
 			sr.sprite = walls[0];
@@ -99,6 +100,7 @@ public class WallTile : MonoBehaviour
 			gameObject.GetComponent<Collider2D>().enabled = true;
 			sr.sprite = walls[maxLife];
 			//particle
+			AudioManager.Instance.playMusic(AudioManager.Instance.wallRelive);
 		}
 	}
 }

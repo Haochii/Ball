@@ -132,6 +132,7 @@ namespace BaseFramework.Network
 		//不返回
 		private void NotifyFightStart(Message msg)
 		{
+			print("ServerStart");
 			RoundManager.Instance.GameStart();
 
 			//ServerModules.FightStartServer.text = "战斗开始,FightStartSever已经触发";
@@ -221,6 +222,7 @@ namespace BaseFramework.Network
 		private void NotifyNextRound(Message msg)
 		{
 			//ServerModules.NextRoundServer.text = "下一回合";
+			print("ServerNext");
 			RoundManager.Instance.NextRound();
 		}
 

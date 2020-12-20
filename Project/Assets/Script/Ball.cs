@@ -40,6 +40,7 @@ public class Ball : MonoBehaviour
 	public int maxBuff = 5;
 	public Transform healthBar;
 	public Image healthFill;
+	public GameObject damageText;
 	public HuoShaoLianYingStatus huoShaoStatus;
 
 	[HideInInspector]
@@ -95,14 +96,52 @@ public class Ball : MonoBehaviour
 
 	public void Damage(int damage)
 	{
+		print(damage);
+		Vector3 pos;
+		if (damage > 0)
+		{
+			/*
+			if (GameManager.Instance.isPlayerA)
+			{
+				pos = Camera.main.WorldToScreenPoint(transform.position);
+			}
+			else
+			{
+				pos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x * -1, transform.position.y * -1));
+			}
+			*/
+			pos = Camera.main.WorldToScreenPoint(transform.position);
+			GameObject text = Instantiate(damageText, pos, Quaternion.identity, GameManager.Instance.canvas);
+			text.GetComponent<UIDamageText>().isDamage = true;
+			text.GetComponent<Text>().text = "-" + damage;
+		}
+		else
+		{
+			/*
+			if (GameManager.Instance.isPlayerA)
+			{
+				pos = Camera.main.WorldToScreenPoint(transform.position);
+			}
+			else
+			{
+				pos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x * -1, transform.position.y * -1));
+			}
+			*/
+			pos = Camera.main.WorldToScreenPoint(transform.position);
+			GameObject text = Instantiate(damageText, pos, Quaternion.identity, GameManager.Instance.canvas);
+			text.GetComponent<UIDamageText>().isDamage = false;
+			text.GetComponent<Text>().text = "+" + -damage;
+		}
+
 		health -= damage;
-		if(health > maxHealth)
+		if (health > maxHealth)
 		{
 			health = maxHealth;
 		}
 
 		if (health <= 0)
 		{
+			AudioManager.Instance.playMusic(AudioManager.Instance.die);
 			health = 0;
 			/*
 			if (isPlayerA)
@@ -114,6 +153,18 @@ public class Ball : MonoBehaviour
 				RoundManager.Instance.ballListB.Remove(this);
 			}
 			*/
+			if(GameManager.Instance.isPlayerA && isPlayerA)
+			{
+				if(isPlayerA)
+				{
+					GameManager.Instance.uILaunch.ballDeadIcons[id].gameObject.SetActive(true);
+				}
+				else
+				{
+					GameManager.Instance.uILaunch.ballDeadIcons[id - 3].gameObject.SetActive(true);
+				}	
+			}
+
 			gameObject.SetActive(false);
 			healthBar.gameObject.SetActive(false);
 			RoundManager.Instance.CheckBallList();
@@ -141,8 +192,10 @@ public class Ball : MonoBehaviour
 			//造成碰撞的球为一方，回合也为那一方，且被碰撞的球为另一方
 			if (isPlayerA == RoundManager.Instance.isCurrentPlayerA && col.GetComponent<Ball>().isPlayerA != RoundManager.Instance.isCurrentPlayerA)
 			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.hurt1);
+
 				//col.GetComponent<Ball>().Damage((int)(lastSpeed / launchSpeed * baseAttack));
-				col.GetComponent<Ball>().Damage((int)((1 - RoundManager.Instance.damageFormulaCoefficient) * (lastSpeed / launchSpeed * RoundManager.Instance.damageFormulaCoefficient) * baseAttack));
+				col.GetComponent<Ball>().Damage((int)(((1 - RoundManager.Instance.damageFormulaCoefficient) * lastSpeed / launchSpeed + RoundManager.Instance.damageFormulaCoefficient) * baseAttack));
 				if (GameManager.Instance.isPlayerA)
 				{
 					RoundManager.Instance.skillPointA += RoundManager.Instance.skillPointPerDamage;
@@ -157,6 +210,24 @@ public class Ball : MonoBehaviour
 		}
 		else if (col.CompareTag("Wall"))
 		{
+			float f = Random.value;
+			if (f <= 0.25f)
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.collider1);
+			}
+			else if (f <= 0.5f)
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.collider2);
+			}
+			else if (f <= 0.75f)
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.collider3);
+			}
+			else
+			{
+				AudioManager.Instance.playMusic(AudioManager.Instance.collider4);
+			}
+
 			GameManager.Instance.GetComponent<BuffManager>().AddBuff(this, GetRandomBuff());
 			col.GetComponent<WallTile>().Damage();
 		}
