@@ -14,7 +14,6 @@ public class UIHUD : MonoBehaviour
 	public Button[] ballIconB;
 	public Transform healthHolder;
 	public Transform[] healthBar;
-	public float selectTime = 30f;
 	public Button[] selectButtons;
 	public Button deployButton;
 	public Image[] spawnPoints;
@@ -56,12 +55,6 @@ public class UIHUD : MonoBehaviour
 
 	void Update()
 	{
-		if(RoundManager.Instance.deploying)
-		{
-			countDown.text = ((int)RoundManager.Instance.deployCountdown).ToString();
-		}
-		countDown.text = ((int)RoundManager.Instance.countDown).ToString();
-
 		if (RoundManager.Instance.isCurrentPlayerA)
 		{
 			playerA.color = isControlling;
@@ -72,6 +65,18 @@ public class UIHUD : MonoBehaviour
 			playerB.color = isControlling;
 			playerA.color = notControlling;
 		}
+
+		if (RoundManager.Instance.deploying)
+		{
+			playerA.color = isControlling;
+			playerB.color = notControlling;
+			countDown.text = ((int)RoundManager.Instance.deployCountdown).ToString();
+		}
+		else
+		{
+			countDown.text = ((int)RoundManager.Instance.countDown).ToString();
+		}
+
 	}
 
 	private void OnDestroy()

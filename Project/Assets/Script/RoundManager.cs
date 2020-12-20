@@ -245,6 +245,8 @@ public class RoundManager : MonoBehaviour
 		if (id < 0)
 		{
 			current = null;
+			GameManager.Instance.uILaunch.ballLocIcon.gameObject.SetActive(false);
+			GameManager.Instance.uILaunch.ChangeBallButton(id);
 			return;
 		}
 		else
@@ -252,10 +254,14 @@ public class RoundManager : MonoBehaviour
 			current = GameManager.Instance.isPlayerA ? ballListA[id] : ballListB[id];
 			if (!current.gameObject.activeSelf)
 			{
+				current = null;
+				GameManager.Instance.uILaunch.ballLocIcon.gameObject.SetActive(false);
+				GameManager.Instance.uILaunch.ChangeBallButton(-1);
 				return;
 			}
-			GameManager.Instance.uILaunch.ready = true;
-			GameManager.Instance.uILaunch.buttonPressed = true;
+			GameManager.Instance.uILaunch.ballLocIcon.gameObject.SetActive(true);
+			GameManager.Instance.uILaunch.ballLocIcon.transform.position = current.transform.position;
+			GameManager.Instance.uILaunch.ChangeBallButton(id);
 		}
 	}
 
@@ -300,8 +306,8 @@ public class RoundManager : MonoBehaviour
 			return;
 		}
 
-		GameManager.Instance.uILaunch.active = true;
-		GameManager.Instance.uILaunch.SwitchButton(true);
+		GameManager.Instance.uILaunch.ready = true;
+		//GameManager.Instance.uILaunch.SwitchButtonInteract(true);
 	}
 
 	public void CheckBallList()

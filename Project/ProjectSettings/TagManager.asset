@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - UserName
+  - BallSelectButton
+  - SkillButton
   layers:
   - Default
   - TransparentFX
