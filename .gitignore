@@ -4,3 +4,5 @@ Project/ProjectSettings/ProjectVersion.txt
 Project/ProjectSettings/PackageManagerSettings.asset
 Project/Assembly-CSharp.csproj
 Project/.vs/Project/v16/.suo
+Project/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+Project/Packages/packages-lock.json
