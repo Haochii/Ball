@@ -13,25 +13,37 @@ public class WallTile : MonoBehaviour
 	public int x;
 	public int y;
 	public bool breakable;
-	public int life;
+	private int life;
 	public int maxLife;
 	public bool respawnable;
 	public int respawnLeft;
 	public int respawnRounds;
+	public Sprite[] walls;
+	private SpriteRenderer sr;
 
 	private void Start()
 	{
+		sr = GetComponent<SpriteRenderer>();
 		if(breakable)
 		{
 			life = maxLife;
+			sr.sprite = walls[maxLife];
 		}
 		if(respawnable)
 		{
 			RoundManager.Instance.nextRound.AddListener(Restore);
+			sr.sprite = walls[life];
 		}
 	}
 
-	private void OnDestroy()
+    private void Update()
+    {
+        if(!GameManager.Instance.isPlayerA)
+        {
+			sr.flipY = true;
+        }
+    }
+    private void OnDestroy()
 	{
 		if (respawnable)
 		{
@@ -44,10 +56,15 @@ public class WallTile : MonoBehaviour
 		if (breakable)
 		{
 			life--;
-			if (life <= 0)
+			if (life == 0)
 			{
 				Break();
 			}
+			if(life < 0)
+            {
+				Debug.LogError("wall's life cannot be negative!");
+            }
+			sr.sprite = walls[life];
 		}
 	}
 
@@ -56,14 +73,19 @@ public class WallTile : MonoBehaviour
 		if(respawnable)
 		{
 			respawnLeft = respawnRounds;
+			sr.sprite = walls[0];
+			gameObject.GetComponent<Collider2D>().enabled = false;
 		}
-		gameObject.SetActive(false);
+        else
+        {
+			gameObject.SetActive(false);
+		}
 		//particle
 	}
 
 	public void Restore()
 	{
-		if(gameObject.activeSelf)
+		if(gameObject.GetComponent<Collider2D>().enabled)
 		{
 			return;
 		}
@@ -72,7 +94,8 @@ public class WallTile : MonoBehaviour
 		if(respawnLeft <= 0)
 		{
 			life = maxLife;
-			gameObject.SetActive(true);
+			gameObject.GetComponent<Collider2D>().enabled = true;
+			sr.sprite = walls[maxLife];
 			//particle
 		}
 	}
