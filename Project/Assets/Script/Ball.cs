@@ -36,6 +36,7 @@ public class Ball : MonoBehaviour
 	public float baseAttack;
 	public float damageFormulaCoefficient;
 	public int buffCount = 0;
+	public GameObject[] buffIcons;
 	public int maxBuff = 5;
 	public Transform healthBar;
 	public Image healthFill;
@@ -135,7 +136,8 @@ public class Ball : MonoBehaviour
 			//造成碰撞的球为一方，回合也为那一方，且被碰撞的球为另一方
 			if (isPlayerA == RoundManager.Instance.isCurrentPlayerA && col.GetComponent<Ball>().isPlayerA != RoundManager.Instance.isCurrentPlayerA)
 			{
-				col.GetComponent<Ball>().Damage((int)(lastSpeed / launchSpeed * baseAttack));
+				//col.GetComponent<Ball>().Damage((int)(lastSpeed / launchSpeed * baseAttack));
+				col.GetComponent<Ball>().Damage((int)((1 - RoundManager.Instance.damageFormulaCoefficient) * (lastSpeed / launchSpeed * RoundManager.Instance.damageFormulaCoefficient) * baseAttack));
 				if (GameManager.Instance.isPlayerA)
 				{
 					RoundManager.Instance.skillPointA += RoundManager.Instance.skillPointPerDamage;
@@ -164,9 +166,9 @@ public class Ball : MonoBehaviour
 		int i;
 		float f = Random.value;
 		float chance = 0f;
-		for (i = 0; i < buffLists.Count - 1; i++)
+		for (i = 1; i < buffLists.Count; i++)
 		{
-			chance += float.Parse(buffLists[i + 1][3]);
+			chance += float.Parse(buffLists[i][3]);
 			if (f <= chance)
 			{
 				break;
@@ -193,6 +195,7 @@ public class Ball : MonoBehaviour
 		{
 			return;
 		}
+		buffIcons[buffCount].gameObject.SetActive(true);
 		buffCount++;
 		baseAttack += baseAttack * RoundManager.Instance.attackBuff;
 		launchSpeed += launchSpeed * RoundManager.Instance.speedBuff;

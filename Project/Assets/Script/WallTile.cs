@@ -53,6 +53,8 @@ public class WallTile : MonoBehaviour
 
 	public void Damage()
 	{
+		print("Damage");
+
 		if (breakable)
 		{
 			life--;

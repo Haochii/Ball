@@ -78,6 +78,7 @@ namespace BaseFramework.Network
 			regServerMonitor("NotifyNextRound", NotifyNextRound);
 			regServerMonitor("NotifyGameOver", NotifyGameOver);
 			regServerMonitor("NotifyRoomClean", NotifyRoomClean);
+			regServerMonitor("NotifyReGame", NotifyReGame);
 			//end
 		}
 
@@ -246,7 +247,13 @@ namespace BaseFramework.Network
 		//测试房间清理用
 		private void NotifyRoomClean(Message msg)
 		{
+			//对面已退出，退到主菜单
 			ServerModules.RoomCleanServer.text = "房间清理通知";
+		}
+		private void NotifyReGame(Message msg)
+		{
+			//回到部署状态
+			Debug.Log("NotifyReGame:双方准备重新开始 ");
 		}
 		//end
 

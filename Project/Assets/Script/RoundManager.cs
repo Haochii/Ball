@@ -61,6 +61,7 @@ public class RoundManager : MonoBehaviour
 	private bool rolling;   //If there're still any balls rolling after a ball has been fired.
 	private float timer;
 	private List<List<string>> globalLists;
+	private List<List<string>> ballTypeLists;
 	private Ball spawningBall;
 
 	private void Awake()
@@ -145,6 +146,7 @@ public class RoundManager : MonoBehaviour
 				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
 			}
 		}
+		ballTypeLists = CSVManager.Instance.BallTypeLists;
 		globalLists = CSVManager.Instance.GlobalLists;
 		deployTime = int.Parse(globalLists[1][0]);
 		roundTime = int.Parse(globalLists[1][1]);
@@ -277,6 +279,54 @@ public class RoundManager : MonoBehaviour
 		//Get server respond.
 
 		List<Ball> list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
+		foreach (Ball b in list)
+		{
+			b.launchSpeed = float.Parse(ballTypeLists[b.type][4]);
+			b.speedReduce = float.Parse(ballTypeLists[b.type][5]);
+			b.maxHealth = int.Parse(ballTypeLists[b.type][6]);
+			b.baseAttack = float.Parse(ballTypeLists[b.type][7]);
+
+			/*
+			switch (b.type)
+			{
+				case 0:
+					b.launchSpeed = float.Parse(ballTypeLists[1][4]);
+					b.speedReduce = float.Parse(ballTypeLists[1][5]);
+					b.maxHealth = int.Parse(ballTypeLists[1][6]);
+					b.baseAttack = float.Parse(ballTypeLists[1][7]);
+					//b.skill
+					break;
+				case 1:
+					b.launchSpeed = float.Parse(ballTypeLists[2][4]);
+					b.speedReduce = float.Parse(ballTypeLists[2][5]);
+					b.maxHealth = int.Parse(ballTypeLists[2][6]);
+					b.baseAttack = float.Parse(ballTypeLists[2][7]);
+					//b.skill
+					break;
+				case 2:
+					b.launchSpeed = float.Parse(ballTypeLists[3][4]);
+					b.speedReduce = float.Parse(ballTypeLists[3][5]);
+					b.maxHealth = int.Parse(ballTypeLists[3][6]);
+					b.baseAttack = float.Parse(ballTypeLists[3][7]);
+					//b.skill
+					break;
+				case 3:
+					b.launchSpeed = float.Parse(ballTypeLists[4][4]);
+					b.speedReduce = float.Parse(ballTypeLists[4][5]);
+					b.maxHealth = int.Parse(ballTypeLists[4][6]);
+					b.baseAttack = float.Parse(ballTypeLists[4][7]);
+					//b.skill
+					break;
+				case 4:
+					b.launchSpeed = float.Parse(ballTypeLists[5][4]);
+					b.speedReduce = float.Parse(ballTypeLists[5][5]);
+					b.maxHealth = int.Parse(ballTypeLists[5][6]);
+					b.baseAttack = float.Parse(ballTypeLists[5][7]);
+					//b.skill
+					break;
+			}*/
+		}
+
 		BallRdArr ballRdArr = new BallRdArr(list[0].type, list[1].type, list[2].type);
 		LoginRequist.ucl.rpcCall("play.ball_ready", JsonConvert.SerializeObject(ballRdArr), null);
 	}
@@ -284,6 +334,52 @@ public class RoundManager : MonoBehaviour
 	public void DeployEnemy(int[] types)
 	{
 		List<Ball> list = GameManager.Instance.isPlayerA ? ballListB : ballListA;
+		foreach (Ball b in list)
+		{
+			b.launchSpeed = float.Parse(ballTypeLists[b.type][4]);
+			b.speedReduce = float.Parse(ballTypeLists[b.type][5]);
+			b.maxHealth = int.Parse(ballTypeLists[b.type][6]);
+			b.baseAttack = float.Parse(ballTypeLists[b.type][7]);
+			/*
+			switch (b.type)
+			{
+				case 0:
+					b.launchSpeed = float.Parse(ballTypeLists[1][4]);
+					b.speedReduce = float.Parse(ballTypeLists[1][5]);
+					b.maxHealth = int.Parse(ballTypeLists[1][6]);
+					b.baseAttack = float.Parse(ballTypeLists[1][7]);
+					//b.skill
+					break;
+				case 1:
+					b.launchSpeed = float.Parse(ballTypeLists[2][4]);
+					b.speedReduce = float.Parse(ballTypeLists[2][5]);
+					b.maxHealth = int.Parse(ballTypeLists[2][6]);
+					b.baseAttack = float.Parse(ballTypeLists[2][7]);
+					//b.skill
+					break;
+				case 2:
+					b.launchSpeed = float.Parse(ballTypeLists[3][4]);
+					b.speedReduce = float.Parse(ballTypeLists[3][5]);
+					b.maxHealth = int.Parse(ballTypeLists[3][6]);
+					b.baseAttack = float.Parse(ballTypeLists[3][7]);
+					//b.skill
+					break;
+				case 3:
+					b.launchSpeed = float.Parse(ballTypeLists[4][4]);
+					b.speedReduce = float.Parse(ballTypeLists[4][5]);
+					b.maxHealth = int.Parse(ballTypeLists[4][6]);
+					b.baseAttack = float.Parse(ballTypeLists[4][7]);
+					//b.skill
+					break;
+				case 4:
+					b.launchSpeed = float.Parse(ballTypeLists[5][4]);
+					b.speedReduce = float.Parse(ballTypeLists[5][5]);
+					b.maxHealth = int.Parse(ballTypeLists[5][6]);
+					b.baseAttack = float.Parse(ballTypeLists[5][7]);
+					//b.skill
+					break;
+			}*/
+		}
 		for (int i = 0; i < list.Count; i++)
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];

@@ -47,6 +47,12 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void SendEndGameMsg(bool re)
+	{
+		IsRe isRe = new IsRe(re);
+		LoginRequist.ucl.rpcCall("play.re_game", JsonConvert.SerializeObject(isRe), null);
+	}
+
 	public void Reset()
 	{
 		SceneManager.LoadScene(0);
@@ -130,4 +136,13 @@ public class UserName
 	}
 
 	public string name;
+}
+
+public class IsRe
+{
+	public IsRe(bool iIsRe)
+	{
+		Re = iIsRe;
+	}
+	public bool Re;
 }

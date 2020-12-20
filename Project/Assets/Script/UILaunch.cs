@@ -272,13 +272,13 @@ public class UILaunch : MonoBehaviour
 	{
 		foreach (Button button in ballSelectButtons)
 		{
-			button.image.color = normalColor;
+			button.GetComponent<Image>().color = normalColor;
 		}
 		if (num < 0)
 		{
 			return;
 		}
-		ballSelectButtons[num].image.color = selectedColor;
+		ballSelectButtons[num].GetComponent<Image>().color = selectedColor;
 		waitTimer = 0f;
 		waiting = false;
 	}
