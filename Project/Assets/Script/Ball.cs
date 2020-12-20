@@ -72,6 +72,8 @@ public class Ball : MonoBehaviour
 	public void Damage(int damage)
 	{
 		health -= damage;
+		string damageText = "-" + damage.ToString();
+		GetComponent<ShootTextProController>().CreatShootText(damageText, transform);
 		if (health <= 0)
 		{
 			health = 0;
