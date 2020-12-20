@@ -117,7 +117,7 @@ public class Ball : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		//常规碰撞增加技力
-		if (GameManager.Instance.isPlayerA)
+		if (isPlayerA)
 		{
 			RoundManager.Instance.skillPointA += RoundManager.Instance.skillPointPerCollision;
 			GameManager.Instance.uIHUD.ChargeSkillBar();

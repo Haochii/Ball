@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class RoundManager : MonoBehaviour
 	public Transform[] spawnPoints;
 	public Color colorSelf;
 	public Color colorEnemy;
+	public Color colorUncheck;
+	public Color colorCheck;
 
 	public int skillPointPerCollision;
 	public int skillPointPerDamage;
@@ -42,7 +45,6 @@ public class RoundManager : MonoBehaviour
 	public int maxBuffLevel;
 	public float attackBuff;
 	public float speedBuff;
-
 	public float aimLineCoefficient;
 	public int aimDragLen;
 	public float enterAimTime;
@@ -53,11 +55,13 @@ public class RoundManager : MonoBehaviour
 	private bool spawnReady;
 	private bool deployReady;
 	private int curSpawnPoint;
+	private int curSpawnType;
 	private bool ticking;   //If the round countdown is ticking.
 	private bool waiting;   //If the interruption is going on after all the balls have stopped.
 	private bool rolling;   //If there're still any balls rolling after a ball has been fired.
 	private float timer;
 	private List<List<string>> globalLists;
+	private Ball spawningBall;
 
 	private void Awake()
 	{
@@ -76,6 +80,7 @@ public class RoundManager : MonoBehaviour
 		deploying = spawnReady = deployReady = false;
 		rolling = false;
 		waiting = false;
+		GameManager.Instance.uIHUD.spawnPoints[0].transform.parent.gameObject.SetActive(false);
 		//Initialize();
 	}
 
@@ -97,7 +102,8 @@ public class RoundManager : MonoBehaviour
 				if (!b.gameObject.activeSelf)
 				{
 					curSpawnPoint = list.IndexOf(b);
-					PlaceBall(UnityEngine.Random.Range(0, sprites.Length - 1));
+					curSpawnType = (UnityEngine.Random.Range(0, sprites.Length - 1));
+					SelectSpawnPoint(curSpawnPoint);
 				}
 			}
 			DeploySelf();
@@ -188,28 +194,19 @@ public class RoundManager : MonoBehaviour
 	{
 		if (!spawnReady)
 		{
-			spawnReady = true;
-		}
-		GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].color = GameManager.Instance.uIHUD.uncheckColor;
-		curSpawnPoint = id;
-		GameManager.Instance.uIHUD.spawnPoints[id].color = GameManager.Instance.uIHUD.checkColor;
-	}
-
-	public void PlaceBall(int type)
-	{
-		if (!spawnReady)
-		{
 			return;
 		}
+		curSpawnPoint = id;
+
 		List<Ball> list;
 		list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
-		Ball ball = list[curSpawnPoint];
-		ball.gameObject.SetActive(true);
-		ball.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
-		ball.type = type;
-		ball.GetComponent<SpriteRenderer>().sprite = sprites[type];
-		ball.GetComponent<SpriteRenderer>().color = colorSelf;
-		ball.healthFill.color = colorSelf;
+		spawningBall = list[curSpawnPoint];
+		spawningBall.type = curSpawnType;
+		spawningBall.gameObject.SetActive(true);
+		spawningBall.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
+		spawningBall.GetComponent<SpriteRenderer>().sprite = sprites[curSpawnType];
+		spawningBall.GetComponent<SpriteRenderer>().color = colorSelf;
+		spawningBall.healthFill.color = colorSelf;
 
 		deployReady = true;
 		foreach (Ball b in list)
@@ -224,6 +221,50 @@ public class RoundManager : MonoBehaviour
 		{
 			GameManager.Instance.uIHUD.deployButton.gameObject.SetActive(true);
 		}
+
+		//GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].color = GameManager.Instance.uIHUD.uncheckColor;
+		//curSpawnPoint = id;
+		//GameManager.Instance.uIHUD.spawnPoints[id].color = GameManager.Instance.uIHUD.checkColor;
+	}
+
+	public void PlaceBall(int type)
+	{
+		if (!spawnReady)
+		{
+			spawnReady = true;
+			GameManager.Instance.uIHUD.spawnPoints[0].transform.parent.gameObject.SetActive(true);
+		}
+		foreach (Button i in GameManager.Instance.uIHUD.selectButtons)
+		{
+			i.image.color = colorUncheck;
+		}
+		GameManager.Instance.uIHUD.selectButtons[type].image.color = colorCheck;
+		curSpawnType = type;
+		/*
+		List<Ball> list;
+		list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
+		spawningBall = list[curSpawnPoint];
+		spawningBall.gameObject.SetActive(true);
+		spawningBall.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
+		spawningBall.type = type;
+		spawningBall.GetComponent<SpriteRenderer>().sprite = sprites[type];
+		spawningBall.GetComponent<SpriteRenderer>().color = colorSelf;
+		spawningBall.healthFill.color = colorSelf;
+
+		deployReady = true;
+		foreach (Ball b in list)
+		{
+			if (!b.gameObject.activeSelf)
+			{
+				deployReady = false;
+				break;
+			}
+		}
+		if (deployReady)
+		{
+			GameManager.Instance.uIHUD.deployButton.gameObject.SetActive(true);
+		}
+		*/
 	}
 
 	public void DeploySelf()
