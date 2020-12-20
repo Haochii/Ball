@@ -250,7 +250,7 @@ public class Ball : MonoBehaviour
 				break;
 			}
 		}
-		switch (i)
+		switch (i-1)
 		{
 			case 0:
 				return BuffList.None;

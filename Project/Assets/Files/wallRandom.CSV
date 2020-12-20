@@ -1,5 +1,5 @@
 itemID,itemName,itemNum,itemProbaility
-3001,nothing,0,0.5
-3101,health,10,0.3
-3201,buff,1,0.1
-3301,qi,20,0.1
+3001,nothing,0,0.7
+3101,health,10,0.15
+3201,buff,1,0.15
+3301,qi,20,0

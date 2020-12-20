@@ -15,8 +15,10 @@ public class RoundInfo : MonoBehaviour
 	public bool isShowing;
 	public void ShowRoundInfo()
 	{
+		timer = 3.0f;
 		isShowing = true;
 		GetComponent<Image>().enabled = true;
+		GetComponent<Image>().color = new Color(255, 255, 255, 1);
 	}
 
 	void Update()
@@ -26,16 +28,16 @@ public class RoundInfo : MonoBehaviour
 			bool isFading = false;
 			//Debug.Log(timer.ToString());
 			timer -= Time.deltaTime;
-			if (timer <= 0.5 && !isFading)
-			{
-				GetComponent<Image>().CrossFadeAlpha(0, 0.3f, true);
-				isFading = true;
-			}
+			//if (timer <= 0.5 && !isFading)
+			//{
+			//	GetComponent<Image>().CrossFadeAlpha(0, 0.3f, true);
+			//	isFading = true;
+			//}
 			if (timer <= 0)
 			{
 				isShowing = false;
 				GetComponent<Image>().enabled = false;
-				timer = 2.0f;
+				timer = 3.0f;
 			}
 		}
 	}
