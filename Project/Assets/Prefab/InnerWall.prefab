@@ -55,8 +55,8 @@ MonoBehaviour:
   respawnRounds: 0
   wall:
   - {fileID: 21300000, guid: 67ba02a2284783a43b27e574c15f05ee, type: 3}
-  - {fileID: 2868539044483428322, guid: c8fef38ef9c775e498e21bdbee96de53, type: 3}
   - {fileID: 6451264694632907309, guid: c8fef38ef9c775e498e21bdbee96de53, type: 3}
+  - {fileID: 2868539044483428322, guid: c8fef38ef9c775e498e21bdbee96de53, type: 3}
   - {fileID: -5107677499478342438, guid: c8fef38ef9c775e498e21bdbee96de53, type: 3}
   - {fileID: 6933618418553894829, guid: c8fef38ef9c775e498e21bdbee96de53, type: 3}
 --- !u!212 &332613967362818796

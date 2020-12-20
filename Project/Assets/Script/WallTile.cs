@@ -69,7 +69,8 @@ public class WallTile : MonoBehaviour
 			respawnLeft = respawnRounds;
 		}
 		gameObject.GetComponent<Collider2D>().enabled = false;
-		//gameObject.SetActive(false);
+		if(!respawnable)
+			gameObject.SetActive(false);
 		//particle
 	}
 
