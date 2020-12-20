@@ -34,6 +34,7 @@ public class Ball : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		lastSpeed = curSpeed = 0f;
 		bl = GetComponent<BallLaunch>();
+		health = maxHealth;
 		healthBar = GameManager.Instance.uIHUD.healthBar[id];
 		healthFill = healthBar.GetChild(0).GetComponent<Image>();
 		gameObject.SetActive(false);
@@ -72,8 +73,6 @@ public class Ball : MonoBehaviour
 	public void Damage(int damage)
 	{
 		health -= damage;
-		string damageText = "-" + damage.ToString();
-		GetComponent<ShootTextProController>().CreatShootText(damageText, transform);
 		if (health <= 0)
 		{
 			health = 0;
