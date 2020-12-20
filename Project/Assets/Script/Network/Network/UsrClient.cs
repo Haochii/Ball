@@ -89,14 +89,14 @@ namespace BaseFramework.Network
 		public class Side
 		{
 			public int side;
-			public int seed;
+			public float seed;
 		}
 		private void NotifyAssign(Message msg)
 		{
-
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
 			Side side = (Side)JsonConvert.DeserializeObject(retParam.ToString(), typeof(Side));
-			GameManager.Instance.EnterMatch(side.side, side.seed);
+			Debug.Log((int)(side.seed / 1000));
+			GameManager.Instance.EnterMatch(side.side, (int)(side.seed / 1000));
 
 			//ServerModules.AssignServer.text += retParam.ToString();
 			DebugLogger.Debug("Side object :" + side.side.ToString());
@@ -297,7 +297,7 @@ namespace BaseFramework.Network
 		{
 
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
-			ServerModules.AssignServer.text += retParam.ToString() + " 玩家加入房间\n";
+			//ServerModules.AssignServer.text += retParam.ToString() + " 玩家加入房间\n";
 		}
 
 		private void NotifyYourSide(Message msg)

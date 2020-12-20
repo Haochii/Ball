@@ -43,6 +43,10 @@ public class RoundManager : MonoBehaviour
 	public float attackBuff;
 	public float speedBuff;
 
+	public float aimLineCoefficient;
+	public int aimDragLen;
+	public float enterAimTime;
+
 	[HideInInspector]
 	public UnityEvent nextRound;
 
@@ -138,12 +142,30 @@ public class RoundManager : MonoBehaviour
 		globalLists = CSVManager.Instance.GlobalLists;
 		deployTime = int.Parse(globalLists[1][0]);
 		roundTime = int.Parse(globalLists[1][1]);
+		damageFormulaCoefficient = float.Parse(globalLists[1][2]);
+		maxBuffLevel = int.Parse(globalLists[1][3]);
 		attackBuff = int.Parse(globalLists[1][4]) / 100f;
 		speedBuff = int.Parse(globalLists[1][5]) / 100f;
 		skillPointPerCollision = int.Parse(globalLists[1][6]);
 		skillPointPerDamage = int.Parse(globalLists[1][7]);
 		maxSkillPoints = int.Parse(globalLists[1][8]);
 		skillGaugeCount = int.Parse(globalLists[1][9]);
+		aimLineCoefficient = int.Parse(globalLists[1][10]);
+		aimDragLen = int.Parse(globalLists[1][11]);
+		enterAimTime = float.Parse(globalLists[1][12]);
+
+		foreach (Ball b in ballListA)
+		{
+			b.damageFormulaCoefficient = damageFormulaCoefficient;
+			b.maxBuff = maxBuffLevel;
+		}
+		foreach (Ball b in ballListB)
+		{
+			b.damageFormulaCoefficient = damageFormulaCoefficient;
+			b.maxBuff = maxBuffLevel;
+		}
+		GameManager.Instance.uILaunch.aimRingRadius = aimDragLen;
+		GameManager.Instance.uILaunch.waitTime = enterAimTime;
 
 		gameStop = false;
 		round = 0;

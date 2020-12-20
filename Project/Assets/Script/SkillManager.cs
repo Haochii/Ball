@@ -51,7 +51,12 @@ public class SkillManager : MonoBehaviour
 		}
 	}
 
-	List<List<string>> lists = CSVManager.Instance.SkillLists;
+	public List<List<string>> lists;
+
+	private void Start()
+	{
+		lists = CSVManager.Instance.SkillLists;
+	}
 
 	public void UseSkill(SkillList skillID, int ia = 0, int ib = 0, int ic = 0, float ix = 0)
 	{

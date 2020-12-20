@@ -9621,7 +9621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &773881652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17317,7 +17317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1614012723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21845,6 +21845,7 @@ GameObject:
   - component: {fileID: 2069256914}
   - component: {fileID: 2069256915}
   - component: {fileID: 2069256916}
+  - component: {fileID: 2069256919}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -21946,6 +21947,9 @@ MonoBehaviour:
   maxBuffLevel: 0
   attackBuff: 0
   speedBuff: 0
+  aimLineCoefficient: 0
+  aimDragLen: 0
+  enterAimTime: 0
   nextRound:
     m_PersistentCalls:
       m_Calls: []
@@ -22069,6 +22073,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd68205feffe0545bcabe2567ccfa65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2069256919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069256909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6641a3148afcce24ebe280e5454ffedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2071855260

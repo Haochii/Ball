@@ -27,9 +27,9 @@ public class CSVManager : MonoBehaviour
 	{
 		//lists = MyReadCSV.Read(Application.streamingAssetsPath + "/test.csv", Encoding.Default);// 打包完地址
 		//lists = MyReadCSV.Read(Application.dataPath + "/test.csv", Encoding.Default);//            打包前测试地址
-		GlobalLists = MyReadCSV.Read(Application.dataPath + "/MyCsv/global.csv", Encoding.Default);
-		SkillLists = MyReadCSV.Read(Application.dataPath + "/MyCsv/pinballBasis.csv", Encoding.Default);
-		BuffLists = MyReadCSV.Read(Application.dataPath + "/MyCsv/skills.csv", Encoding.Default);
-		BallTypeLists = MyReadCSV.Read(Application.dataPath + "/MyCsv/wallRandom.csv", Encoding.Default);
+		GlobalLists = MyReadCSV.Read(Application.dataPath + "/Files/global.csv", Encoding.Default);
+		SkillLists = MyReadCSV.Read(Application.dataPath + "/Files/pinballBasis.csv", Encoding.Default);
+		BuffLists = MyReadCSV.Read(Application.dataPath + "/Files/skills.csv", Encoding.Default);
+		BallTypeLists = MyReadCSV.Read(Application.dataPath + "/Files/wallRandom.csv", Encoding.Default);
 	}
 }

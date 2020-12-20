@@ -12,11 +12,11 @@ public enum BuffList
 
 public class BuffManager : MonoBehaviour
 {
-	List<List<string>> buffLists = CSVManager.Instance.BuffLists;
+	public List<List<string>> buffLists;
 
 	private void Start()
 	{
-
+		buffLists = CSVManager.Instance.BuffLists;
 	}
 
 	public void AddBuff(Ball ball, BuffList buff)

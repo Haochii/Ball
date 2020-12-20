@@ -194,7 +194,7 @@ public class Ball : MonoBehaviour
 			return;
 		}
 		buffCount++;
-		baseAttack += baseAttack * 0.05f;
-		launchSpeed += launchSpeed * 0.05f;
+		baseAttack += baseAttack * RoundManager.Instance.attackBuff;
+		launchSpeed += launchSpeed * RoundManager.Instance.speedBuff;
 	}
 }
