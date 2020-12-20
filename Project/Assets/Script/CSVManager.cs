@@ -30,6 +30,6 @@ public class CSVManager : MonoBehaviour
 		GlobalLists = MyReadCSV.Read(Application.dataPath + "/Files/global.csv", Encoding.Default);
 		BallTypeLists = MyReadCSV.Read(Application.dataPath + "/Files/pinballBasis.csv", Encoding.Default);
 		SkillLists = MyReadCSV.Read(Application.dataPath + "/Files/skills.csv", Encoding.Default);
-		BuffLists = MyReadCSV.Read(Application.dataPath + "/Files/wallRandom.csv", Encoding.Default);
+		BuffLists = MyReadCSV.Read(Application.dataPath + "/Files/wallRandom.CSV", Encoding.Default);
 	}
 }

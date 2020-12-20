@@ -96,6 +96,11 @@ public class Ball : MonoBehaviour
 	public void Damage(int damage)
 	{
 		health -= damage;
+		if(health > maxHealth)
+		{
+			health = maxHealth;
+		}
+
 		if (health <= 0)
 		{
 			health = 0;

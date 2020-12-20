@@ -22402,6 +22402,8 @@ MonoBehaviour:
   - {fileID: 5330605750801988446}
   - {fileID: 7513380255849884319}
   - {fileID: 2187428030261115870}
+  healthBarSelf: {fileID: 21300000, guid: 6b9743fb8161b764a8b4187f96b2be5e, type: 3}
+  healthBarEnemy: {fileID: 21300000, guid: cdb7116fc6ca542449263812efbfd882, type: 3}
   colorSelf: {r: 0.23495908, g: 0.71740335, b: 0.9056604, a: 1}
   colorEnemy: {r: 0.8962264, g: 0.19653195, b: 0.18178178, a: 1}
   colorUncheck: {r: 0.4, g: 0.4, b: 0.4, a: 1}
@@ -23576,11 +23578,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 422736512917147130, guid: 096e3ed0c0cc57344815dc062bf0dff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 689670822046082988, guid: 096e3ed0c0cc57344815dc062bf0dff6,
         type: 3}
       propertyPath: m_SortingLayer
@@ -23702,21 +23699,6 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1555480056638030308, guid: 096e3ed0c0cc57344815dc062bf0dff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3551243448284771169, guid: 096e3ed0c0cc57344815dc062bf0dff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6653936783631722264, guid: 096e3ed0c0cc57344815dc062bf0dff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8492677092663850014, guid: 096e3ed0c0cc57344815dc062bf0dff6,
         type: 3}
       propertyPath: m_CollisionDetection
@@ -23726,11 +23708,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Interpolate
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8557411933330563780, guid: 096e3ed0c0cc57344815dc062bf0dff6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 096e3ed0c0cc57344815dc062bf0dff6, type: 3}

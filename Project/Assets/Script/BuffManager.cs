@@ -14,18 +14,16 @@ public class BuffManager : MonoBehaviour
 {
 	public List<List<string>> buffLists;
 
-	private void Start()
-	{
-		buffLists = CSVManager.Instance.BuffLists;
-	}
-
 	public void AddBuff(Ball ball, BuffList buff)
 	{
+		buffLists = CSVManager.Instance.BuffLists;
+
 		switch (buff)
 		{
 			case BuffList.None:
 				break;
 			case BuffList.Heal:
+				print(-1 * int.Parse(buffLists[2][2]));
 				ball.Damage(-int.Parse(buffLists[2][2]));
 				break;
 			case BuffList.Buff:

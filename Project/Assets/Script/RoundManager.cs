@@ -29,6 +29,8 @@ public class RoundManager : MonoBehaviour
 	public Ball current;
 	public Sprite[] sprites;
 	public Transform[] spawnPoints;
+	public Sprite healthBarSelf;
+	public Sprite healthBarEnemy;
 	public Color colorSelf;
 	public Color colorEnemy;
 	public Color colorUncheck;
@@ -208,7 +210,8 @@ public class RoundManager : MonoBehaviour
 		spawningBall.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
 		spawningBall.GetComponent<SpriteRenderer>().sprite = sprites[curSpawnType];
 		spawningBall.GetComponent<SpriteRenderer>().color = colorSelf;
-		spawningBall.healthFill.color = colorSelf;
+		//spawningBall.healthFill.color = colorSelf;
+		spawningBall.healthFill.sprite = healthBarSelf;
 
 		deployReady = true;
 		foreach (Ball b in list)
@@ -281,10 +284,10 @@ public class RoundManager : MonoBehaviour
 		List<Ball> list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
 		foreach (Ball b in list)
 		{
-			b.launchSpeed = float.Parse(ballTypeLists[b.type][4]);
-			b.speedReduce = float.Parse(ballTypeLists[b.type][5]);
-			b.maxHealth = int.Parse(ballTypeLists[b.type][6]);
-			b.baseAttack = float.Parse(ballTypeLists[b.type][7]);
+			b.launchSpeed = float.Parse(ballTypeLists[b.type + 1][4]);
+			b.speedReduce = float.Parse(ballTypeLists[b.type + 1][5]);
+			b.maxHealth = int.Parse(ballTypeLists[b.type + 1][6]);
+			b.baseAttack = float.Parse(ballTypeLists[b.type + 1][7]);
 
 			/*
 			switch (b.type)
@@ -336,10 +339,10 @@ public class RoundManager : MonoBehaviour
 		List<Ball> list = GameManager.Instance.isPlayerA ? ballListB : ballListA;
 		foreach (Ball b in list)
 		{
-			b.launchSpeed = float.Parse(ballTypeLists[b.type][4]);
-			b.speedReduce = float.Parse(ballTypeLists[b.type][5]);
-			b.maxHealth = int.Parse(ballTypeLists[b.type][6]);
-			b.baseAttack = float.Parse(ballTypeLists[b.type][7]);
+			b.launchSpeed = float.Parse(ballTypeLists[b.type + 1][4]);
+			b.speedReduce = float.Parse(ballTypeLists[b.type + 1][5]);
+			b.maxHealth = int.Parse(ballTypeLists[b.type + 1][6]);
+			b.baseAttack = float.Parse(ballTypeLists[b.type + 1][7]);
 			/*
 			switch (b.type)
 			{
@@ -384,7 +387,8 @@ public class RoundManager : MonoBehaviour
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];
 			list[i].GetComponent<SpriteRenderer>().color = colorEnemy;
-			list[i].healthFill.color = colorEnemy;
+			list[i].healthFill.sprite = healthBarEnemy;
+			//list[i].healthFill.color = colorEnemy;
 			list[i].transform.position = spawnPoints[list[i].id].position;
 		}
 	}
@@ -418,6 +422,16 @@ public class RoundManager : MonoBehaviour
 		{
 			GameManager.Instance.uIHUD.healthHolder.GetChild(i).gameObject.SetActive(true);
 		}
+
+		foreach(Ball b in ballListA)
+		{
+			b.health = b.maxHealth;
+		}
+		foreach(Ball b in ballListB)
+		{
+			b.health = b.maxHealth;
+		}
+
 		NextRound();
 	}
 
