@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
 	public bool isPlayerA;
 	public string playerAName;
 	public string playerBName;
-
+	public int seed;
 	public bool winner;    //A: true; B: false.
+	public float[] buffChance;
 
 	private void Awake()
 	{
@@ -76,14 +77,14 @@ public class GameManager : MonoBehaviour
 		uIHUD.playerB.text = playerBName;
 	}
 
-	public void EnterMatch(int side)
+	public void EnterMatch(int side, int seed)
 	{
 		//Done!
 		//Receiving data...
 
 		isPlayerA = side == 0;
+		Random.InitState(seed);
 		uIMenu.middlePanel.gameObject.SetActive(false);
-
 		RoundManager.Instance.StartDeploy();
 	}
 

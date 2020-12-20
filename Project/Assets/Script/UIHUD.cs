@@ -10,8 +10,8 @@ public class UIHUD : MonoBehaviour
 	public Text playerB;
 	public Image skillIcon;
 	public Image skillBar;
-	public Button[] ballIconA;
-	public Button[] ballIconB;
+	public Image SkillBarMiniA;
+	public Image SkillBarMiniB;
 	public Transform healthHolder;
 	public Transform[] healthBar;
 	public Button[] selectButtons;
@@ -24,48 +24,22 @@ public class UIHUD : MonoBehaviour
 	public Color isControlling;
 	public Color notControlling;
 
-	/*
-	private void Awake()
-	{
-		for (int i = 0; i < healthHolder.childCount; i++)
-		{
-			healthBar[i] = healthHolder.GetChild(i);
-		}
-	}
-	*/
-
 	void Start()
 	{
 		//RoundManager.Instance.nextRound.AddListener(ChangePlayerNameColor);
-
 		foreach (Image image in spawnPoints)
 		{
 			image.color = uncheckColor;
 		}
 
-		for (int i = 0; i < ballIconA.Length; i++)
-		{
-
-		}
-		for (int i = 0; i < ballIconB.Length; i++)
-		{
-
-		}
+		skillBar.fillAmount = 0f;
+		SkillBarMiniA.fillAmount = 0f;
+		SkillBarMiniB.fillAmount = 0f;
 	}
 
 	void Update()
 	{
-		if (RoundManager.Instance.isCurrentPlayerA)
-		{
-			playerA.color = isControlling;
-			playerB.color = notControlling;
-		}
-		else
-		{
-			playerB.color = isControlling;
-			playerA.color = notControlling;
-		}
-
+		ChangePlayerNameColor();
 		if (RoundManager.Instance.deploying)
 		{
 			playerA.color = isControlling;
@@ -81,7 +55,7 @@ public class UIHUD : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		RoundManager.Instance.nextRound.RemoveListener(ChangePlayerNameColor);
+		//RoundManager.Instance.nextRound.RemoveListener(ChangePlayerNameColor);
 	}
 
 	public void MoveSpawnICon()
@@ -93,7 +67,6 @@ public class UIHUD : MonoBehaviour
 
 	public void ChangePlayerNameColor()
 	{
-		/*
 		if (RoundManager.Instance.isCurrentPlayerA)
 		{
 			playerA.color = isControlling;
@@ -104,12 +77,27 @@ public class UIHUD : MonoBehaviour
 			playerB.color = isControlling;
 			playerA.color = notControlling;
 		}
-		*/
+	}
+
+	public void ChargeSkillBar()
+	{
+		float sa = (float)RoundManager.Instance.skillPointA / RoundManager.Instance.maxSkillPoints;
+		float sb = (float)RoundManager.Instance.skillPointB / RoundManager.Instance.maxSkillPoints;
+		if (GameManager.Instance.isPlayerA)
+		{
+			skillBar.fillAmount = sa;
+		}
+		else
+		{
+			skillBar.fillAmount = sb;
+		}
+		SkillBarMiniA.fillAmount = sa;
+		SkillBarMiniB.fillAmount = sb;
 	}
 
 	public void Halt()
 	{
-		
+
 	}
 
 	public void Stop()

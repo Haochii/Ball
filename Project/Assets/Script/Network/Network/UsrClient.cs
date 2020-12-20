@@ -89,13 +89,14 @@ namespace BaseFramework.Network
 		public class Side
 		{
 			public int side;
+			public int seed;
 		}
 		private void NotifyAssign(Message msg)
 		{
 
 			object retParam = MessagePackDecoder<object>(msg.NotifyInfo.RpcParams);
 			Side side = (Side)JsonConvert.DeserializeObject(retParam.ToString(), typeof(Side));
-			GameManager.Instance.EnterMatch(side.side);
+			GameManager.Instance.EnterMatch(side.side, side.seed);
 
 			//ServerModules.AssignServer.text += retParam.ToString();
 			DebugLogger.Debug("Side object :" + side.side.ToString());

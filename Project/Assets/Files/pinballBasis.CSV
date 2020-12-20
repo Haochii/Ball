@@ -1,0 +1,6 @@
+pinBall_ID,pinBall_Name,radius,mass,launchSpeed,speedDecrement,maxHealth,attack,skill_ID
+1101,GuoJia,1,5,30,1,100,30,2101
+1102,DianWei,1,6,30,1.5,150,20,2202
+1201,ZhaoYun,1.5,6,30,1.5,120,20,2201
+1301,LuXun,1,4,30,1,80,30,2301
+1401,HuaTuo,1,4,30,1,80,20,2401

@@ -1,2 +1,2 @@
 prepareTime,actionTime,damageFormulaCoefficient,maxBuffLevel,attackBuff,speedBuff,qiPerCollision,qiPerDamage,maxQi,qiSectionsNum,aimLineCoefficient,aimDragLen,enterAimTime
-30,10,0.3,5,5,2,1,5,150,3,1,100,0.2
+30,10,0.3,5,5,10,1,5,150,3,1,100,0.2

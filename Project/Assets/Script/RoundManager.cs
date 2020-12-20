@@ -31,6 +31,18 @@ public class RoundManager : MonoBehaviour
 	public Color colorSelf;
 	public Color colorEnemy;
 
+	public int skillPointPerCollision;
+	public int skillPointPerDamage;
+	public int skillPointA;
+	public int skillPointB;
+	public int maxSkillPoints = 150;
+	public int skillGaugeCount;
+
+	public float damageFormulaCoefficient;
+	public int maxBuffLevel;
+	public float attackBuff;
+	public float speedBuff;
+
 	[HideInInspector]
 	public UnityEvent nextRound;
 
@@ -41,6 +53,7 @@ public class RoundManager : MonoBehaviour
 	private bool waiting;   //If the interruption is going on after all the balls have stopped.
 	private bool rolling;   //If there're still any balls rolling after a ball has been fired.
 	private float timer;
+	private List<List<string>> globalLists;
 
 	private void Awake()
 	{
@@ -122,6 +135,15 @@ public class RoundManager : MonoBehaviour
 				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
 			}
 		}
+		globalLists = CSVManager.Instance.GlobalLists;
+		deployTime = int.Parse(globalLists[1][0]);
+		roundTime = int.Parse(globalLists[1][1]);
+		attackBuff = int.Parse(globalLists[1][4]) / 100f;
+		speedBuff = int.Parse(globalLists[1][5]) / 100f;
+		skillPointPerCollision = int.Parse(globalLists[1][6]);
+		skillPointPerDamage = int.Parse(globalLists[1][7]);
+		maxSkillPoints = int.Parse(globalLists[1][8]);
+		skillGaugeCount = int.Parse(globalLists[1][9]);
 
 		gameStop = false;
 		round = 0;
