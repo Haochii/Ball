@@ -32,7 +32,7 @@ public class WallTile : MonoBehaviour
 		if(respawnable)
 		{
 			RoundManager.Instance.nextRound.AddListener(Restore);
-			sr.sprite = wall[3];
+			sr.sprite = wall[life];
 		}
 	}
 
@@ -49,10 +49,15 @@ public class WallTile : MonoBehaviour
 		if (breakable)
 		{
 			life--;
-			if (life <= 0)
+			if (life == 0)
 			{
+				sr.sprite = wall[life];
 				Break();
 			}
+			if(life<0)
+            {
+				Debug.LogError("Wall's life cannot be negative!");
+            }
 			sr.sprite = wall[life];
 		}
 	}
@@ -63,13 +68,14 @@ public class WallTile : MonoBehaviour
 		{
 			respawnLeft = respawnRounds;
 		}
-		gameObject.SetActive(false);
+		gameObject.GetComponent<Collider2D>().enabled = false;
+		//gameObject.SetActive(false);
 		//particle
 	}
 
 	public void Restore()
 	{
-		if(gameObject.activeSelf)
+		if(gameObject.GetComponent<Collider2D>().enabled)
 		{
 			return;
 		}
@@ -78,7 +84,7 @@ public class WallTile : MonoBehaviour
 		if(respawnLeft <= 0)
 		{
 			life = maxLife;
-			gameObject.SetActive(true);
+			gameObject.GetComponent<Collider2D>().enabled = true;
 			sr.sprite = wall[maxLife];
 			//particle
 		}
