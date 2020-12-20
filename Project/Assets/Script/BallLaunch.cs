@@ -15,6 +15,12 @@ public class BallLaunch : MonoBehaviour
 
 	public void Launch(int degree, int force)
 	{
+		/*
+		if(!GameManager.Instance.isPlayerA)
+		{
+			degree += 180 * 10000;
+		}
+		*/
 		float deg = (float)degree / 10000;
 		float rad = deg * Mathf.Deg2Rad;
 		float len = (float)force / 10000;
@@ -28,7 +34,8 @@ public class BallLaunch : MonoBehaviour
 				degree += 180;
 			}
 			*/
-			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree + 180 * 10000);
+			//BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree + 180 * 10000);
+			BallLaunchClass ballLaunchClass = new BallLaunchClass(GetComponent<Ball>().id, -1, force, degree);
 			LoginRequist.ucl.rpcCall("play.id_ball_launch", JsonConvert.SerializeObject(ballLaunchClass), null);
 		}
 	}

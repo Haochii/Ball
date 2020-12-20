@@ -56,6 +56,10 @@ public class UIHUD : MonoBehaviour
 
 	void Update()
 	{
+		if(RoundManager.Instance.deploying)
+		{
+			countDown.text = ((int)RoundManager.Instance.deployCountdown).ToString();
+		}
 		countDown.text = ((int)RoundManager.Instance.countDown).ToString();
 
 		if (RoundManager.Instance.isCurrentPlayerA)
@@ -73,6 +77,13 @@ public class UIHUD : MonoBehaviour
 	private void OnDestroy()
 	{
 		RoundManager.Instance.nextRound.RemoveListener(ChangePlayerNameColor);
+	}
+
+	public void MoveSpawnICon()
+	{
+		spawnPoints[0].transform.position = RoundManager.Instance.spawnPoints[3].position;
+		spawnPoints[1].transform.position = RoundManager.Instance.spawnPoints[4].position;
+		spawnPoints[2].transform.position = RoundManager.Instance.spawnPoints[5].position;
 	}
 
 	public void ChangePlayerNameColor()

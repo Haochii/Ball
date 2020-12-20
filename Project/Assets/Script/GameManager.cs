@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 	public string playerAName;
 	public string playerBName;
 
-	private bool winner;    //A: true; B: false.
+	public bool winner;    //A: true; B: false.
 
 	private void Awake()
 	{
@@ -54,8 +54,26 @@ public class GameManager : MonoBehaviour
 	public void StartMatchmaking()
 	{
 		uIMenu.menuPanel.gameObject.SetActive(false);
-		LoginRequist.ucl.rpcCall("combat.start_match", null, null);
+		UserName userName = new UserName(uIMenu.inputField.text);
+		LoginRequist.ucl.rpcCall("combat.start_match", JsonConvert.SerializeObject(userName), null);
 		//Matckmaking...
+	}
+
+	public void SetName(string opponentName)
+	{
+		if (isPlayerA)
+		{
+			playerAName = uIMenu.inputField.text;
+			playerBName = opponentName; //Required name from server.
+		}
+		else
+		{
+			playerAName = opponentName; //Required name from server.
+			playerBName = uIMenu.inputField.text;
+		}
+
+		uIHUD.playerA.text = playerAName;
+		uIHUD.playerB.text = playerBName;
 	}
 
 	public void EnterMatch(int side)
@@ -64,21 +82,6 @@ public class GameManager : MonoBehaviour
 		//Receiving data...
 
 		isPlayerA = side == 0;
-
-		if (isPlayerA)
-		{
-			playerAName = uIMenu.inputField.text;
-			playerBName = "Server"; //Required name from server.
-		}
-		else
-		{
-			playerAName = "Server"; //Required name from server.
-			playerBName = uIMenu.inputField.text;
-		}
-
-
-		uIHUD.playerA.text = playerAName;
-		uIHUD.playerB.text = playerBName;
 		uIMenu.middlePanel.gameObject.SetActive(false);
 
 		RoundManager.Instance.StartDeploy();
@@ -116,4 +119,14 @@ public class IsWin
 		Win = iIsWin;
 	}
 	public bool Win;
+}
+
+public class UserName
+{
+	public UserName(string iName)
+	{
+		name = iName;
+	}
+
+	public string name;
 }

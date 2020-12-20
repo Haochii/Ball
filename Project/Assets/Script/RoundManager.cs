@@ -16,6 +16,7 @@ public class RoundManager : MonoBehaviour
 	public float deployTime = 30f;
 	public float roundTime = 15f;
 	public float countDown = 999f;
+	public float deployCountdown = 30f;
 	public float roundInterval = 1f;
 	public bool deploying;
 	public bool firing;
@@ -53,7 +54,8 @@ public class RoundManager : MonoBehaviour
 	{
 		isCurrentPlayerA = true;
 		curSpawnPoint = 0;
-		countDown = roundTime;
+		deployTime = 30f;
+		deployCountdown = deployTime;
 		deploying = spawnReady = deployReady = false;
 		rolling = false;
 		waiting = false;
@@ -63,15 +65,15 @@ public class RoundManager : MonoBehaviour
 	private void Update()
 	{
 		CheckBallMove();
-		/*
+
 		if (deploying)
 		{
-			timer += Time.deltaTime;
+			deployCountdown -= Time.deltaTime;
+			GameManager.Instance.uIHUD.countDown.text = ((int)timer).ToString();
 		}
-		if (deploying && timer >= deployTime)
+		if (deploying && deployCountdown <= 0f)
 		{
 			deploying = false;
-			timer = 0f;
 			List<Ball> list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
 			foreach (Ball b in list)
 			{
@@ -83,7 +85,7 @@ public class RoundManager : MonoBehaviour
 			}
 			DeploySelf();
 		}
-		*/
+
 		if (waiting || firing)
 		{
 			timer += Time.deltaTime;
@@ -107,6 +109,20 @@ public class RoundManager : MonoBehaviour
 
 	public void Initialize()
 	{
+		if (!GameManager.Instance.isPlayerA)
+		{
+			Camera.main.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			GameManager.Instance.uIHUD.MoveSpawnICon();
+			foreach (Ball b in ballListA)
+			{
+				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			}
+			foreach (Ball b in ballListB)
+			{
+				b.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+			}
+		}
+
 		gameStop = false;
 		round = 0;
 		isCurrentPlayerA = false;
@@ -145,10 +161,11 @@ public class RoundManager : MonoBehaviour
 		list = GameManager.Instance.isPlayerA ? ballListA : ballListB;
 		Ball ball = list[curSpawnPoint];
 		ball.gameObject.SetActive(true);
-		ball.transform.position = spawnPoints[curSpawnPoint].position;
+		ball.transform.position = GameManager.Instance.uIHUD.spawnPoints[curSpawnPoint].transform.position;
 		ball.type = type;
 		ball.GetComponent<SpriteRenderer>().sprite = sprites[type];
 		ball.GetComponent<SpriteRenderer>().color = colorSelf;
+		ball.healthFill.color = colorSelf;
 
 		deployReady = true;
 		foreach (Ball b in list)
@@ -186,7 +203,8 @@ public class RoundManager : MonoBehaviour
 		{
 			list[i].GetComponent<SpriteRenderer>().sprite = sprites[types[i]];
 			list[i].GetComponent<SpriteRenderer>().color = colorEnemy;
-			list[i].transform.position = spawnPoints[i + 3].position;
+			list[i].healthFill.color = colorEnemy;
+			list[i].transform.position = spawnPoints[list[i].id].position;
 		}
 	}
 
@@ -227,6 +245,7 @@ public class RoundManager : MonoBehaviour
 		if (id < 0)
 		{
 			current = null;
+			return;
 		}
 		else
 		{
@@ -287,7 +306,7 @@ public class RoundManager : MonoBehaviour
 
 	public void CheckBallList()
 	{
-		print("Lose.");
+		print("Check.");
 		bool allDie = true;
 		foreach (Ball b in ballListA)
 		{
@@ -358,7 +377,7 @@ public class RoundManager : MonoBehaviour
 				timer = 0f;
 
 				//Active player send position check.
-				if (GameManager.Instance.isPlayerA)
+				if (GameManager.Instance.isPlayerA == isCurrentPlayerA)
 				{
 					SendPosition();
 				}
@@ -415,6 +434,37 @@ public class RoundManager : MonoBehaviour
 		ballListB[0].transform.position = new Vector2((float)intX[3] / 10000, (float)intY[3] / 10000);
 		ballListB[1].transform.position = new Vector2((float)intX[4] / 10000, (float)intY[4] / 10000);
 		ballListB[2].transform.position = new Vector2((float)intX[5] / 10000, (float)intY[5] / 10000);
+		/*
+		if (GameManager.Instance.isPlayerA)
+		{
+			ballListA[0].transform.position = new Vector2((float)intX[0] / 10000, (float)intY[0] / 10000);
+			ballListA[1].transform.position = new Vector2((float)intX[1] / 10000, (float)intY[1] / 10000);
+			ballListA[2].transform.position = new Vector2((float)intX[2] / 10000, (float)intY[2] / 10000);
+			ballListB[0].transform.position = new Vector2((float)intX[3] / 10000, (float)intY[3] / 10000);
+			ballListB[1].transform.position = new Vector2((float)intX[4] / 10000, (float)intY[4] / 10000);
+			ballListB[2].transform.position = new Vector2((float)intX[5] / 10000, (float)intY[5] / 10000);
+		}
+		else
+		{
+			for (int i = 0; i < intY.Length; i++)
+			{
+				if (intY[i] > 0)
+				{
+					intY[i] = 10000 - intY[i];
+				}
+				else
+				{
+					intY[i] = -10000 - intY[i];
+				}
+			}
+			ballListA[0].transform.position = new Vector2((float)-intX[0] / 10000, (float)intY[0] / 10000);
+			ballListA[1].transform.position = new Vector2((float)-intX[1] / 10000, (float)intY[1] / 10000);
+			ballListA[2].transform.position = new Vector2((float)-intX[2] / 10000, (float)intY[2] / 10000);
+			ballListB[0].transform.position = new Vector2((float)-intX[3] / 10000, (float)intY[3] / 10000);
+			ballListB[1].transform.position = new Vector2((float)-intX[4] / 10000, (float)intY[4] / 10000);
+			ballListB[2].transform.position = new Vector2((float)-intX[5] / 10000, (float)intY[5] / 10000);
+		}
+		*/
 	}
 }
 
